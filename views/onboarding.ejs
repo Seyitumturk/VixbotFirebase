@@ -1,0 +1,77 @@
+<!-- onboarding.ejs -->
+
+<body>
+  <div class="main-content">
+    <div class="container ">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="card shadow">
+            <div class="card-header border-0">
+              <h3 class="mb-0">Onboarding</h3>
+            </div>
+            <div class="card-body">
+              <p>Welcome to the onboarding process! Please complete the following steps:</p>
+              <ul>
+                <li>Let's start with learning your business in depth</li>
+                <!-- Add more steps as needed -->
+              </ul>
+              <p>Once you have completed the onboarding process, you'll be able to access all features of the platform.
+              </p>
+
+              <form action="/onboarding/create-business" method="POST">
+
+                <div class="form-group">
+                  <label for="name">Business Name:</label>
+                  <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                  <label for="industry">Industry:</label>
+                  <input type="text" class="form-control" id="industry" name="industry" required>
+                </div>
+                <div class="form-group">
+                  <label for="stands_for">Stands For:</label>
+                  <input type="text" class="form-control" id="stands_for" name="stands_for" required>
+                </div>
+                <div class="form-group">
+                  <label for="communication_tone">Communication Tone:</label>
+                  <input type="text" class="form-control" id="communication_tone" name="communication_tone" required>
+                </div>
+                <div class="form-group">
+                  <label for="main_competitors">Main Competitors:</label>
+                  <input type="text" class="form-control" id="main_competitors" name="main_competitors" required>
+                </div>
+                <div class="form-group">
+                  <label for="strengths">Strengths:</label>
+                  <input type="text" class="form-control" id="strengths" name="strengths" required>
+                </div>
+                <div class="form-group">
+                  <label for="weaknesses">Weaknesses:</label>
+                  <input type="text" class="form-control" id="weaknesses" name="weaknesses" required>
+                </div>
+                <div class="form-group">
+                  <label for="typical_growth">Typical Growth:</label>
+                  <input type="text" class="form-control" id="typical_growth" name="typical_growth" required>
+                </div>
+                <div class="form-group">
+                  <label for="teamsize_and_structure">Team Size and Structure:</label>
+                  <input type="text" class="form-control" id="teamsize_and_structure" name="teamsize_and_structure"
+                    required>
+                </div>
+                <div class="form-group">
+                  <label for="company_culture">Company Culture:</label>
+                  <input type="text" class="form-control" id="company_culture" name="company_culture" required>
+                </div>
+                <div class="form-group">
+                  <label for="main_bussiness_goals">Main Business Goals:</label>
+                  <input type="text" class="form-control" id="main_bussiness_goals" name="main_bussiness_goals"
+                    required>
+                </div>
+                <button type="submit" class="btn btn-primary">Create Business</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

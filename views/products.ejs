@@ -1,0 +1,256 @@
+<body>
+
+    <div class="main-content">
+
+        <!-- Page content -->
+        <div class="container-fluid mt--7">
+            <!-- Table -->
+            <div class="row">
+                <div class="col">
+                    <div class="card shadow">
+                        <div class="card-header bg-transparent">
+                            <h3 class="mb-0">Products</h3>
+                            <button id="add-product-btn" class="btn btn-primary">+</button>
+                        </div>
+                        <div id="card-body-extend" class="card-body">
+                            <div class="row icon-examples">
+                                <!-- Add Product button -->
+
+
+
+
+                                <!-- Product creation form (hidden by default) -->
+
+                                <!-- Create a new modal for creating a new product -->
+                                <div class="modal fade" id="create-product-modal" tabindex="-1" role="dialog"
+                                    aria-labelledby="create-product-modal-label" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="create-product-modal-label">
+                                                    Create a New Product</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <!-- Add a single question at a time -->
+                                                <form id="create-product-form" method="POST" action="/create-product">
+                                                    <div class="form-group" id="product-name-group">
+                                                        <label for="product-name">Product Name:</label>
+                                                        <input type="text" id="product-name" name="product_name"
+                                                            class="form-control" required>
+                                                    </div>
+                                                    <div class="form-group" id="main-features-group">
+                                                        <label for="main-features">Main Features:</label>
+                                                        <textarea id="main-features" name="main_features"
+                                                            class="form-control" required></textarea>
+                                                    </div>
+                                                    <div class="form-group" id="unique-selling-points-group">
+                                                        <label for="unique-selling-points">Unique Selling
+                                                            Points:</label>
+                                                        <textarea id="unique-selling-points"
+                                                            name="unique_selling_points" class="form-control"
+                                                            required></textarea>
+                                                    </div>
+                                                    <div class="form-group" id="pricing-model-group">
+                                                        <label for="pricing-model">Pricing Model:</label>
+                                                        <select id="pricing-model" name="pricing_model"
+                                                            class="form-control" required>
+                                                            <option value="">Choose a pricing model</option>
+                                                            <option value="pay-per-use">Pay-per-use</option>
+                                                            <option value="subscription">Subscription
+                                                            </option>
+                                                            <option value="one-time-fee">One-time fee
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group" id="distribution-channels-group">
+                                                        <label for="distribution-channels">Distribution
+                                                            Channels:</label>
+                                                        <input type="text" id="distribution-channels"
+                                                            name="distribution_channels" class="form-control" required>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Cancel</button>
+                                                <button type="button" class="btn btn-primary"
+                                                    id="next-btn">Next</button>
+                                                <button type="button" class="btn btn-primary"
+                                                    id="submit-btn">Submit</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <script>$(document).ready(function () {
+                                        // Handle "+" button click event
+                                        $('#add-product-btn').on('click', function () {
+                                            $('#create-product-modal').modal('show');
+                                            // Set the focus on the first input field
+                                            $('#product-name').focus();
+                                        });
+
+                                        // Handle "Next" button click event
+                                        $('#next-btn').on('click', function () {
+                                            // Validate the current question
+                                            var valid = true;
+                                            var currentGroup = $('.form-group:visible');
+                                            currentGroup.find(':input').each(function () {
+                                                if (!this.checkValidity()) {
+                                                    valid = false;
+                                                    $(this).addClass('is-invalid');
+                                                } else {
+                                                    $(this).removeClass('is-invalid');
+                                                }
+                                            });
+                                            if (!valid) {
+                                                return;
+                                            }
+
+                                            // Hide the current question and show the next one
+                                            currentGroup.hide();
+                                            currentGroup.next('.form-group').show();
+
+                                            // If the current question is the last one, show the "Submit" button
+                                            if (currentGroup.next('.form-group').length == 0) {
+                                                $('#next-btn').hide();
+                                                $('#submit-btn').show();
+                                            }
+                                        });
+
+                                        // Handle "Submit" button click event
+                                        $('#submit-btn').on('click', function () {
+                                            // Submit the form data to the server using AJAX
+                                            $.ajax({
+                                                type: 'POST',
+                                                url: '/create-product',
+                                                data: $('#create-product-form').serialize(),
+                                                success: function (data) {
+                                                    // Update the UI with the new product data
+                                                    $('#product-list').append(data);
+                                                    $('#create-product-form')[0].reset();
+                                                    // Hide the modal
+                                                    $('#create-product-modal').modal('hide');
+                                                },
+                                                error: function (jqXHR, textStatus, errorThrown) {
+                                                    console.error(errorThrown);
+                                                }
+                                            });
+                                        });
+
+                                        // Reset the form and hide all questions except the first one when the modal is shown
+                                        $('#create-product-modal').on('show.bs.modal', function () {
+                                            $('#create-product-form')[0].reset();
+                                            $('.form-group').hide();
+                                            $('.form-group:first').show();
+                                            $('#next-btn').show();
+                                            $('#submit-btn').hide();
+                                        });
+
+                                        // Show the validation error message when an invalid input field loses focus
+                                        $(':input').on('invalid', function () {
+                                            $(this).addClass('is-invalid');
+                                        });
+                                        $(':input').on('input', function () {
+                                            $(this).removeClass('is-invalid');
+                                        });
+                                    });
+                                </script>
+
+
+
+
+                                <% products.forEach(function(product) { %>
+                                    <div class="col-lg-3 col-md-6 text-white product-card d-flex flex-column">
+                                        <div class="product-details">
+                                            <h1 class="text-white mb-2 p-3 border-bottom border-white ">
+                                                <%= product.product_name %>
+                                            </h1>
+                                            <p><strong>Main Features:</strong>
+                                                <%= product.main_features %>
+                                            </p>
+                                            <p><strong>Unique Selling Points:</strong>
+                                                <%= product.unique_selling_points %>
+                                            </p>
+                                            <p><strong>Pricing Model:</strong>
+                                                <%= product.pricing_model %>
+                                            </p>
+                                            <p><strong>Distribution Channels:</strong>
+                                                <%= product.distribution_channels %>
+                                            </p>
+                                        </div>
+
+                                        <div class="d-flex justify-content-end mt-auto">
+                                            <div class="delete-product"></div>
+                                            <div class="edit-product"></div>
+                                        </div>
+
+                                    </div>
+                                    <% }); %>
+
+                                        <script>
+                                            // Wait for the document to be ready
+                                            $(document).ready(function () {
+
+                                                // Submit the form data to the server using AJAX
+                                                $('#create-product-form').submit(function (event) {
+                                                    event.preventDefault();
+
+                                                    $.ajax({
+                                                        type: 'POST',
+                                                        url: '/create-product',
+                                                        data: $(this).serialize(),
+                                                        success: function (data) {
+                                                            // Update the UI with the new product data
+                                                            $('#product-list').append(data);
+                                                            $('#create-product-form')[0].reset();
+                                                        },
+                                                        error: function (jqXHR, textStatus, errorThrown) {
+                                                            console.error(errorThrown);
+                                                        }
+                                                    });
+                                                });
+
+                                                // Reload the page when the form is submitted
+                                                document.getElementById("create-product-form").addEventListener("submit", function () {
+                                                    location.reload();
+                                                });
+
+                                                // Get the overlay element
+                                                const overlay = document.getElementById('overlay');
+
+                                                // Toggle the expanded class on a product card when it's clicked
+                                                $('.product-card').on('click', function () {
+                                                    $(this).toggleClass('expanded');
+                                                    if ($(this).hasClass('expanded')) {
+                                                        overlay.style.display = 'block';
+                                                    } else {
+                                                        overlay.style.display = 'none';
+                                                    }
+                                                });
+
+                                                // Hide the expanded product card and the overlay when the overlay is clicked
+                                                $(overlay).on('click', function () {
+                                                    $('.product-card.expanded').removeClass('expanded');
+                                                    overlay.style.display = 'none';
+                                                });
+
+                                            });
+                                        </script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer -->
+
+        </div>
+    </div>
+
+    <div id="overlay" style="display: none;"></div>
+
+</body>

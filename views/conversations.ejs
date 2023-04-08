@@ -1,0 +1,254 @@
+<body>
+    <h1>Hello</h1>
+    <!-- Sidenav -->
+    <!-- Sidebar -->
+        <div id="sidebar" class="sidebar">
+            <ul>
+                <li><a href="#"><i class="icon">Icon 1</i><span class="text">Item 1</span></a></li>
+                <li><a href="#"><i class="icon">Icon 2</i><span class="text">Item 2</span></a></li>
+                <li><a href="#"><i class="icon">Icon 3</i><span class="text">Item 3</span></a></li>
+                <li><a href="#"><i class="icon">Icon 4</i><span class="text">Item 4</span></a></li>
+            </ul>
+            <!-- Toggle button -->
+            <a href="#" class="toggle-btn" onclick="toggleSidebar()"><i class="icon">Toggle Icon</i></a>
+            
+        </div>
+        <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById("sidebar");
+            sidebar.classList.toggle("collapsed");
+          }
+          </script>
+
+        <!-- Main content -->
+        <div class="main-content">
+            <!-- Top navbar -->
+            <!-- Page content -->
+            <div class="card shadow">
+
+                <div class="card-body">
+
+                    <div class="responses-container" id="responses-container">
+                        <!-- Response cards go here -->
+                    </div>
+                    <div class="card-footer-vb bg-transparent">
+                        <div class="form-container">
+                            <form id="conversation-form" autocomplete="off" class="conversation-form">
+                                <div class="gpt-input-group">
+                                    <input id="input-text-box" type="text" name="text"
+                                        placeholder="Find your next golden idea...">
+                                    <button type="submit" class="generate-btn"> </button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="button-container">
+                            <button id="chooseProductButton" class="action-button">Choose Product</button>
+                            <button id="chooseTemplateButton" class="action-button">Choose Template</button>
+                            <div class="icon-menu">
+                                <button type="button" class="expandable-btn">Marketing</button>
+                                <div class="icon-menu-content">
+                                    <button type="button" class="circle-icon">Sales</button>
+                                    <button type="button" class="circle-icon">Finance</button>
+                                    <button type="button" class="circle-icon">HR</button>
+                                    <button type="button" class="circle-icon">Legal</button>
+                                    <button type="button" class="circle-icon">IT</button>
+                                    <button type="button" class="circle-icon">Product Dev</button>
+                                    <button type="button" class="circle-icon">Analytics</button>
+                                    <button type="button" class="circle-icon">Customer Service</button>
+                                    <button type="button" class="circle-icon">Content Creation</button>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Add this for the modal -->
+                        <div id="productModal" class="modal">
+                            <div class="modal-content">
+                                <span class="close">&times;</span>
+                                <div id="productMenu">
+                                    <% products.forEach((product)=> { %>
+                                        <button class="product-item" data-product='<%- JSON.stringify(product) %>'>
+                                            <%= product.product_name %>
+                                        </button>
+                                        <% }); %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <script>
+                document.querySelector('.expandable-btn').addEventListener('click', function () {
+                    var menuContent = document.querySelector('.icon-menu-content');
+                    menuContent.style.display = menuContent.style.display === 'block' ? 'none' : 'block';
+                });
+            </script>
+
+            <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                    // Get the modal and button elements
+                    const productModal = document.getElementById("productModal");
+                    const chooseProductButton = document.getElementById("chooseProductButton");
+
+                    // Add this event listener for the "Choose Product" button
+                    chooseProductButton.addEventListener("click", () => {
+                        productModal.style.display = "block";
+                    });
+
+                    // Close the product modal when the user clicks on the close button
+                    const closeModalButton = document.querySelector(".close");
+                    closeModalButton.addEventListener("click", () => {
+                        productModal.style.display = "none";
+                    });
+
+                    // Close the product modal when the user clicks outside the modal
+                    window.onclick = (event) => {
+                        if (event.target == productModal) {
+                            productModal.style.display = "none";
+                        }
+                    };
+
+                    // Add event listener for product items
+                    const productItems = document.querySelectorAll(".product-item");
+                    productItems.forEach(item => {
+                        item.addEventListener("click", event => {
+                            const product = JSON.parse(event.target.dataset.product);
+                            localStorage.setItem("selectedProduct", JSON.stringify(product));
+                            productModal.style.display = "none";
+                        });
+                    });
+                });
+
+                let conversationHistory = [
+                    { role: "system", content: "You are a helpful assistant." }
+                ];
+
+                document.getElementById('conversation-form').addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const inputTextBox = document.getElementById('input-text-box');
+                    const userMessage = inputTextBox.value;
+                    inputTextBox.value = '';
+
+                    addMessageToUI('user', userMessage);
+                    conversationHistory.push({ role: "user", content: userMessage });
+
+
+                    const selectedProduct = JSON.parse(localStorage.getItem("selectedProduct"));
+
+                    const chosenBusiness = JSON.parse(localStorage.getItem("selectedBusiness"));
+
+
+                    if (selectedProduct) {
+                        const data = { messages: conversationHistory, product: selectedProduct, chosenBusiness: chosenBusiness };
+
+                        const response = await fetch('/conversations', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(data),
+                        });
+
+                        if (response.ok) {
+                            const responseData = await response.json();
+                            const botMessage = responseData.response;
+                            conversationHistory.push({ role: "assistant", content: botMessage });
+                            addMessageToUI('bot', botMessage);
+                        } else {
+                            console.error('Error while sending request:', response.status, response.statusText);
+                        }
+                    } else {
+                        alert("Please choose a product before sending a message.");
+                    }
+                });
+
+                function addMessageToUI(role, message) {
+                    const messageContainer = document.createElement('div');
+                    messageContainer.className = `message-container ${role}`;
+
+
+                    const messageHeader = document.createElement('div');
+                    messageHeader.className = 'message-header';
+                    messageContainer.appendChild(messageHeader);
+
+
+                    const profileIcon = document.createElement('div');
+                    profileIcon.className = `profile-icon ${role}`;
+                    messageContainer.appendChild(profileIcon);
+
+                    messageHeader.appendChild(profileIcon);
+
+
+                    //Format response text
+                    const messageContent = document.createElement('div');
+                    messageContent.className = 'message-content';
+                    const formattedMessage = message.split('\n').filter(line => line.trim() !== '').map(line => {
+                        if (line.startsWith('- ') || line.startsWith('* ')) {
+                            const listItem = document.createElement('li');
+                            listItem.textContent = line.slice(2).trim();
+                            return listItem.outerHTML;
+                        } else {
+                            const paragraph = document.createElement('p');
+                            paragraph.textContent = line.trim();
+                            return paragraph.outerHTML;
+                        }
+                    }).join('');
+
+                    messageContent.innerHTML = formattedMessage;
+                    messageContainer.appendChild(messageContent);
+
+                    if (role === 'bot') {
+                        const optionsContainer = document.createElement('div');
+                        optionsContainer.className = 'options-container';
+                        messageHeader.appendChild(optionsContainer);
+
+                        const optionsList = document.createElement('ul');
+                        optionsList.className = 'options-list';
+                        optionsContainer.appendChild(optionsList);
+
+                        const options = ['Explain', 'Summarize', 'Actionize', 'Expand'];
+
+                        options.forEach(option => {
+                            const optionItem = document.createElement('li');
+                            const optionBtn = document.createElement('button');
+                            optionBtn.textContent = option;
+                            optionBtn.onclick = () => {
+                                console.log(`Clicked ${option} for message:`, message);
+                                // Perform your desired action for the option and message here
+                            };
+                            optionItem.appendChild(optionBtn);
+                            optionsList.appendChild(optionItem);
+                        });
+
+                        profileIcon.addEventListener('click', () => {
+                            optionsList.classList.toggle('open');
+                        });
+                    }
+
+                    document.getElementById('responses-container').appendChild(messageContainer);
+                }
+
+                document.addEventListener('click', (e) => {
+                    if (!e.target.matches('.options-btn') && !e.target.matches('.options-dropdown') && !e.target.closest('.options-dropdown')) {
+                        const dropdowns = document.getElementsByClassName('options-dropdown');
+                        for (let i = 0; i < dropdowns.length; i++) {
+                            dropdowns[i].style.display = 'none';
+                        }
+                    }
+                });
+
+
+
+
+            </script>
+
+
+
+
+        </div>
+        <!-- Include scripts -->
+        <% include ../partials/scripts %>
+</body>
