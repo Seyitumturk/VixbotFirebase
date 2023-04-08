@@ -3,8 +3,9 @@ const express = require('express');
 const router = express.Router();
 const path = require('path');
 const withDbConnection = require('../utils/withDbConnection');
+const cookieParser = require('cookie-parser');
 
-const { auth, signInWithEmailAndPassword, createUserWithEmailAndPassword } = require('../utils/firebaseConfig');
+const { auth, adminAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } = require('../utils/firebaseConfig');
 
 
 
@@ -26,19 +27,45 @@ let usersCollection;
 
 // Authentication middleware to check if a user is logged in before proceeding to requested route
 
-function isAuthenticated(req, res, next) {
-    if (req.user && req.isAuthenticated()) {
-        return next();
-    }
 
-    return res.redirect('/login');
+const admin = require('firebase-admin');
+
+async function isAuthenticated(req, res, next) {
+    const idToken = req.cookies.token;
+    console.log('ID Token:', idToken); // Add this line
+
+    if (idToken) {
+        try {
+            // Verify the ID token with Firebase Admin SDK
+            const decodedToken = await admin.auth().verifyIdToken(idToken);
+
+            // Check if the user exists in your MongoDB database
+            const user = await User.findOne({ email: decodedToken.email });
+            if (!user) {
+                return res.status(401).json({ error: 'Unauthorized' });
+            }
+
+            // Set the user object on the request to use later in other routes
+            req.user = user;
+            next();
+        } catch (error) {
+            console.error('Error in isAuthenticated middleware:', error); // Add this line
+            return res.status(401).json({ error: 'Unauthorized' });
+        }
+    } else {
+        return res.status(401).json({ error: 'Unauthorized' });
+    }
 }
+
+
+
+
 
 
 // Login routes 
 
 router.get('/', (req, res) => {
-    res.render('pages/index');
+    res.render('login');
 });
 
 router.get('/login', (req, res) => {
@@ -48,6 +75,61 @@ router.get('/login', (req, res) => {
 router.get('/register', (req, res) => {
     res.render('register');
 });
+
+
+
+
+router.get('/onboarding', isAuthenticated, (req, res) => {
+    res.render('onboarding');
+});
+
+
+router.post('/onboarding/create-business', isAuthenticated, async (req, res) => {
+    const {
+        name,
+        industry,
+        occupation,
+        stands_for,
+        communication_tone,
+        main_competitors,
+        strengths,
+        weaknesses,
+        typical_growth,
+        teamsize_and_structure,
+        company_culture,
+        main_bussiness_goals,
+        gpt_business_summary
+    } = req.body;
+
+    const newBusiness = new Business({
+        user_id: req.user.id,
+        name,
+        industry,
+        occupation,
+        stands_for,
+        communication_tone,
+        main_competitors,
+        strengths,
+        weaknesses,
+        typical_growth,
+        teamsize_and_structure,
+        company_culture,
+        main_bussiness_goals,
+        gpt_business_summary
+    });
+
+    try {
+        await newBusiness.save();
+        await User.findByIdAndUpdate(req.user.id, { $set: { onboarding_completed: true } });
+        res.redirect('/conversations');
+    } catch (err) {
+        console.error(err);
+        res.render('pages/conversations', { error: 'Failed to create the business. Please try again.' });
+    }
+});
+
+
+
 
 
 router.post('/register', withDbConnection, async (req, res) => {
@@ -71,8 +153,6 @@ router.post('/register', withDbConnection, async (req, res) => {
 });
 
 
-
-
 router.post('/login', withDbConnection, async (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
@@ -80,8 +160,11 @@ router.post('/login', withDbConnection, async (req, res) => {
     try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
+        const idToken = await user.getIdToken();
 
-        res.send(`User signed in with UID: ${user.uid}`);
+        // Set the ID token as a cookie named 'token'
+        res.cookie('token', idToken, { httpOnly: true });
+        res.redirect('/onboarding');
     } catch (error) {
         res.status(400).send(`Error: ${error.message}`);
     }
@@ -234,7 +317,7 @@ router.get('/conversations', isAuthenticated, async (req, res) => {
         const templates = 'New Template'; // Replace this with the selected product name
 
         // Pass the businesses, products, and chosenBusiness variables to the conversations.ejs file
-        res.render('pages/conversations', { businesses, products, chosenBusiness });
+        res.render('conversations', { businesses, products, chosenBusiness });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -278,65 +361,6 @@ router.post('/conversations', isAuthenticated, async (req, res) => {
 
 
 
-
-// Onboarding 
-
-function ensureAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-        return next();
-    }
-    res.redirect('/login');
-}
-
-
-router.get('/onboarding', ensureAuthenticated, (req, res) => {
-    res.render('pages/onboarding');
-});
-
-
-router.post('/onboarding/create-business', ensureAuthenticated, async (req, res) => {
-    const {
-        name,
-        industry,
-        occupation,
-        stands_for,
-        communication_tone,
-        main_competitors,
-        strengths,
-        weaknesses,
-        typical_growth,
-        teamsize_and_structure,
-        company_culture,
-        main_bussiness_goals,
-        gpt_business_summary
-    } = req.body;
-
-    const newBusiness = new Business({
-        user_id: req.user.id,
-        name,
-        industry,
-        occupation,
-        stands_for,
-        communication_tone,
-        main_competitors,
-        strengths,
-        weaknesses,
-        typical_growth,
-        teamsize_and_structure,
-        company_culture,
-        main_bussiness_goals,
-        gpt_business_summary
-    });
-
-    try {
-        await newBusiness.save();
-        await User.findByIdAndUpdate(req.user.id, { $set: { onboarding_completed: true } });
-        res.redirect('/conversations');
-    } catch (err) {
-        console.error(err);
-        res.render('pages/conversations', { error: 'Failed to create the business. Please try again.' });
-    }
-});
 
 
 

@@ -1,6 +1,6 @@
 const { initializeApp } = require('firebase/app');
-const { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } = require('firebase/auth');
-
+const { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, verifyIdToken } = require('@firebase/auth');
+const admin = require("firebase-admin");
 
 const firebaseConfig = {
     apiKey: "AIzaSyAAdOi7-xZAtr6wg94tWgkBdzfHFqaMaks",
@@ -12,15 +12,21 @@ const firebaseConfig = {
     measurementId: "G-W0663TH0XQ"
 };
 
-
 initializeApp(firebaseConfig);
 
 const auth = getAuth();
+
+
+admin.initializeApp({
+    credential: admin.credential.cert("./keyfile/vixbot-16ec8-firebase-adminsdk-bmf0d-4d6662e21a.json"),
+});
+
+const adminAuth = admin.auth();
 
 module.exports = {
     firebaseConfig,
     auth,
     createUserWithEmailAndPassword,
-    signInWithEmailAndPassword
-
+    signInWithEmailAndPassword,
+    verifyIdToken
 };
