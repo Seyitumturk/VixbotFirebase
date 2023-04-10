@@ -175,7 +175,7 @@ router.post('/login', withDbConnection, async (req, res) => {
 //Template Routes
 
 router.get('/templates', isAuthenticated, (req, res) => {  // Render maps page if user is logged in
-    res.render('pages/templates');
+    res.render('templates');
 });
 router.post('/create-template', isAuthenticated, async (req, res) => {
     try {
@@ -233,7 +233,7 @@ router.get('/products', isAuthenticated, async (req, res) => {
 
     try {
         const products = await Product.find({ user_id: req.user._id });
-        res.render('pages/products', { products: products, businesses });
+        res.render('products', { products: products, businesses });
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Failed to retrieve products' });
