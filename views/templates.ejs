@@ -1,40 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="/products.css">
+
+</head>
+
+
 <body>
+    <div class="wrapper">
 
-    <div class="main-content">
+        <div id="bigSidebar"
+            class="flex flex-col items-center w-64 h-full overflow-hidden text-gray-400 bg-gray-900 rounded ">
+            <a class="flex items-center w-full px-3 mt-3" href="#">
+                <svg class="w-14 h-14 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                    fill="currentColor">
+                    <path
+                        d="M11 17a1 1 0 001.447.894l4-2A1 1 0 0017 15V9.236a1 1 0 00-1.447-.894l-4 2a1 1 0 00-.553.894V17zM15.211 6.276a1 1 0 000-1.788l-4.764-2.382a1 1 0 00-.894 0L4.789 4.488a1 1 0 000 1.788l4.764 2.382a1 1 0 00.894 0l4.764-2.382zM4.447 8.342A1 1 0 003 9.236V15a1 1 0 00.553.894l4 2A1 1 0 009 17v-5.764a1 1 0 00-.553-.894l-4-2z" />
+                </svg>
+                <span class="ml-2 text-sm font-bold">VixBot</span>
+            </a>
+            <a class="flex items-center w-full h-12 px-3 mt-2 rounded hover:bg-gray-700 hover:text-gray-300 mt-20"
+                href="/conversations">
+                <!-- ... -->
+                <span class="ml-2 text-sm font-medium">Ideate</span>
+            </a>
+            <!-- ... -->
+            <!-- Products link -->
+            <a class="flex items-center w-full h-12 px-3 mt-2 rounded hover:bg-gray-700 hover:text-gray-300"
+                href="/products">
+                <!-- ... -->
+                <span class="ml-2 text-sm font-medium">Products</span>
+            </a>
+            <!-- Templates link -->
+            <a class="flex items-center w-full h-12 px-3 mt-2 rounded hover:bg-gray-700 hover:text-gray-300"
+                href="/templates">
+                <!-- Add an appropriate SVG icon for Templates -->
+                <span class="ml-2 text-sm font-medium">Templates</span>
+            </a>
 
-        <!-- Page content -->
-        <div class="container-fluid mt--7">
-            <!-- Table -->
-            <div class="row">
-                <div class="col">
-                    <div class="card shadow">
-                        <div class="card-header bg-transparent">
-                            <h3 class="mb-0">Templates</h3>
+
+
+        </div>
+        <div class="main-content">
+
+
+
+
+
+
+            <!-- Template creation form-->
+            <div class="modal fade" id="create-template-modal" tabindex="-1" role="dialog"
+                aria-labelledby="create-template-modal-label" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="create-template-modal-label">Create a New Template</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
-                        <div class="card-body">
-
-
-
-                            <div id="card-body-extend" class="row icon-examples">
-
-                                <div class="col-lg-3 col-md-6">
-                                    <button type="button" class="btn-icon-clipboard" data-clipboard-text="air-baloon"
-                                        title="Copy to clipboard">
-                                        <div>
-                                            <i class="ni ni-air-baloon"></i>
-                                            <span>air-baloon</span>
-                                        </div>
-                                    </button>
+                        <div class="modal-body">
+                            <form id="create-template-form" method="POST" action="/create-template">
+                                <div class="form-group" id="template-name-group">
+                                    <label for="template-name">Template Name:</label>
+                                    <input type="text" id="template-name" name="template_name" class="form-control"
+                                        required>
                                 </div>
-
-                            </div>
+                                <div class="form-group" id="template-context-group">
+                                    <label for="template-context">Template Context:</label>
+                                    <input type="text" id="template-context" name="template_context"
+                                        class="form-control" required>
+                                </div>
+                                <div class="form-group" id="template-functionality-group">
+                                    <label for="template-functionality">Template Functionality:</label>
+                                    <input type="text" id="template-functionality" name="template_functionality"
+                                        class="form-control" required>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary" id="submit-template-btn">Submit</button>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <div id="templates-section" class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 p-6">
+                <!-- Templates will be dynamically inserted here -->
+            </div>
+
+
+
+
+            <script>
+                document.addEventListener('DOMContentLoaded', (event) => {
+                    const form = document.getElementById('create-template-form');
+                    const submitBtn = document.getElementById('submit-template-btn');
+
+                    form.addEventListener('submit', async (e) => {
+                        console.log('Form submitted');
+
+                        e.preventDefault();
+
+                        const templateName = document.getElementById('template-name').value;
+                        const templateContext = document.getElementById('template-context').value;
+                        const templateFunctionality = document.getElementById('template-functionality').value;
+
+                        const templateData = {
+                            template_name: templateName,
+                            template_context: templateContext,
+                            template_functionality: templateFunctionality
+                        };
+
+                        const response = await fetch('/templates', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(templateData),
+                        });
+
+                        if (response.ok) {
+                            const responseData = await response.json();
+                            console.log('Template created successfully:', responseData);
+                            // You can update the UI or redirect the user here
+                        } else {
+                            console.error('Error while sending request:', response.status, response.statusText);
+                        }
+                    });
+
+                    submitBtn.addEventListener('click', (e) => {
+                        form.dispatchEvent(new Event('submit'));
+                    });
+                });
+            </script>
+
+            <script>
+                async function loadTemplates() {
+                    const response = await fetch('/templates');
+                    const templates = await response.json();
+
+                    const templateSection = document.getElementById('templates-section');
+
+                    for (const template of templates) {
+                        const card = document.createElement('div');
+                        card.className = 'neumorphic';
+
+                        const name = document.createElement('h2');
+                        name.textContent = template.template_name;
+                        card.appendChild(name);
+
+                        const context = document.createElement('p');
+                        context.textContent = template.template_context;
+                        card.appendChild(context);
+
+                        const functionality = document.createElement('p');
+                        functionality.textContent = template.template_functionality;
+                        card.appendChild(functionality);
+
+                        templateSection.appendChild(card);
+                    }
+                }
+
+                loadTemplates();
+
+            </script>
+
+
         </div>
-    </div>
-
-
 </body>

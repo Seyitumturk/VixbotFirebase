@@ -1,37 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversation</title>
+    <link rel="stylesheet" href="/main.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+</head>
+
 <body>
-    <h1>Hello</h1>
-    <!-- Sidenav -->
-    <!-- Sidebar -->
-    <div id="sidebar" class="sidebar">
-        <ul>
-            <li><a href="#"><i class="icon">Icon 1</i><span class="text">Item 1</span></a></li>
-            <li><a href="#"><i class="icon">Icon 2</i><span class="text">Item 2</span></a></li>
-            <li><a href="#"><i class="icon">Icon 3</i><span class="text">Item 3</span></a></li>
-            <li><a href="#"><i class="icon">Icon 4</i><span class="text">Item 4</span></a></li>
-        </ul>
-        <!-- Toggle button -->
-        <a href="#" class="toggle-btn" onclick="toggleSidebar()"><i class="icon">Toggle Icon</i></a>
+    <div class="wrapper">
 
-    </div>
-    <script>
-        function toggleSidebar() {
-            const sidebar = document.getElementById("sidebar");
-            sidebar.classList.toggle("collapsed");
-        }
-    </script>
 
-    <!-- Main content -->
-    <div class="main-content">
-        <!-- Top navbar -->
-        <!-- Page content -->
-        <div class="card shadow">
+        <!-- Component Start -->
+        <div id="bigSidebar"
+            class="flex flex-col items-center w-64 h-full overflow-hidden text-gray-400 bg-gray-900 rounded ">
+            <a class="flex items-center w-full px-3 mt-3" href="#">
+                <svg class="w-14 h-14 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                    fill="currentColor">
+                    <path
+                        d="M11 17a1 1 0 001.447.894l4-2A1 1 0 0017 15V9.236a1 1 0 00-1.447-.894l-4 2a1 1 0 00-.553.894V17zM15.211 6.276a1 1 0 000-1.788l-4.764-2.382a1 1 0 00-.894 0L4.789 4.488a1 1 0 000 1.788l4.764 2.382a1 1 0 00.894 0l4.764-2.382zM4.447 8.342A1 1 0 003 9.236V15a1 1 0 00.553.894l4 2A1 1 0 009 17v-5.764a1 1 0 00-.553-.894l-4-2z" />
+                </svg>
+                <span class="ml-2 text-sm font-bold">VixBot</span>
+            </a>
+            <a class="flex items-center w-full h-12 px-3 mt-2 rounded hover:bg-gray-700 hover:text-gray-300 mt-20"
+                href="/conversations">
+                <!-- ... -->
+                <span class="ml-2 text-sm font-medium">Ideate</span>
+            </a>
+            <!-- ... -->
+            <!-- Products link -->
+            <a class="flex items-center w-full h-12 px-3 mt-2 rounded hover:bg-gray-700 hover:text-gray-300"
+                href="/products">
+                <!-- ... -->
+                <span class="ml-2 text-sm font-medium">Products</span>
+            </a>
+            <!-- Templates link -->
+            <a class="flex items-center w-full h-12 px-3 mt-2 rounded hover:bg-gray-700 hover:text-gray-300"
+                href="/templates">
+                <!-- Add an appropriate SVG icon for Templates -->
+                <span class="ml-2 text-sm font-medium">Templates</span>
+            </a>
 
-            <div class="card-body">
 
-                <div class="responses-container" id="responses-container">
-                    <!-- Response cards go here -->
+
+        </div>
+        <!-- Component End  -->
+
+        <div class="main-content">
+
+            <div class="card shadow">
+                <div class="card-body">
+                    <div class="chat-content">
+                        <div class="responses-container" id="responses-container">
+                            <!-- Response cards go here -->
+
+                            <div class="typing-animation" id="typing-animation">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
                 </div>
-                <div class="card-footer-vb bg-transparent">
+
+                <div class="card-footer-vb bg-gray-900 ">
                     <div class="form-container">
                         <form id="conversation-form" autocomplete="off" class="conversation-form">
                             <div class="gpt-input-group">
@@ -42,27 +82,28 @@
                         </form>
                     </div>
 
-                    <div class="button-container">
-                        <button id="chooseProductButton" class="action-button">Choose Product</button>
-                        <button id="chooseTemplateButton" class="action-button">Choose Template</button>
-                        <div class="icon-menu">
-                            <button type="button" class="expandable-btn">Marketing</button>
-                            <div class="icon-menu-content">
-                                <button type="button" class="circle-icon">Sales</button>
-                                <button type="button" class="circle-icon">Finance</button>
-                                <button type="button" class="circle-icon">HR</button>
-                                <button type="button" class="circle-icon">Legal</button>
-                                <button type="button" class="circle-icon">IT</button>
-                                <button type="button" class="circle-icon">Product Dev</button>
-                                <button type="button" class="circle-icon">Analytics</button>
-                                <button type="button" class="circle-icon">Customer Service</button>
-                                <button type="button" class="circle-icon">Content Creation</button>
+                    <div class="floating-btn-container">
+                        <button id="floatingButton" class="floating-btn">+</button>
+                    </div>
+
+
+                    <!-- Template Modal -->
+                    <div id="templateModal" class="modal">
+                        <div class="modal-content">
+                            <span class="close">&times;</span>
+                            <div id="templateMenu">
+                                <% templates.forEach((template)=> { %>
+                                    <button class="template-item" data-template='<%- JSON.stringify(template) %>'>
+                                        <%= template.template_name %>
+                                    </button>
+                                    <% }); %>
                             </div>
                         </div>
                     </div>
 
 
-                    <!-- Add this for the modal -->
+
+                    <!-- Product modal -->
                     <div id="productModal" class="modal">
                         <div class="modal-content">
                             <span class="close">&times;</span>
@@ -75,179 +116,172 @@
                             </div>
                         </div>
                     </div>
+
+
+                    <div class="button-container">
+                        <div class="action-buttons">
+
+                            <button id="chooseProductButton" class="action-button">Choose Product</button>
+                            <button id="chooseTemplateButton" class="action-button">Choose Template</button>
+                            <div class="icon-menu">
+                                <button type="button" class="expandable-btn">Marketing</button>
+                                <div class="icon-menu-content">
+                                    <button type="button" class="circle-icon">Sales</button>
+                                    <button type="button" class="circle-icon">Finance</button>
+                                    <button type="button" class="circle-icon">HR</button>
+                                    <button type="button" class="circle-icon">Legal</button>
+                                    <button type="button" class="circle-icon">IT</button>
+                                    <button type="button" class="circle-icon">Product Dev</button>
+                                    <button type="button" class="circle-icon">Analytics</button>
+                                    <button type="button" class="circle-icon">Customer Service</button>
+                                    <button type="button" class="circle-icon">Content Creation</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
 
 
-        <script>
-            document.querySelector('.expandable-btn').addEventListener('click', function () {
-                var menuContent = document.querySelector('.icon-menu-content');
-                menuContent.style.display = menuContent.style.display === 'block' ? 'none' : 'block';
+
+
+
+
+    <script>
+        //Modals handlers
+
+        document.addEventListener("DOMContentLoaded", () => {
+            // Get the modal and button elements
+            const productModal = document.getElementById("productModal");
+            const chooseProductButton = document.getElementById("chooseProductButton");
+
+            // Add this event listener for the "Choose Product" button
+            chooseProductButton.addEventListener("click", () => {
+                productModal.style.display = "block";
             });
-        </script>
 
-        <script>
-            document.addEventListener("DOMContentLoaded", () => {
-                // Get the modal and button elements
-                const productModal = document.getElementById("productModal");
-                const chooseProductButton = document.getElementById("chooseProductButton");
+            // Close the product modal when the user clicks on the close button
+            const closeModalButton = document.querySelector(".close");
+            closeModalButton.addEventListener("click", () => {
+                productModal.style.display = "none";
+            });
 
-                // Add this event listener for the "Choose Product" button
-                chooseProductButton.addEventListener("click", () => {
-                    productModal.style.display = "block";
-                });
+            // Close the product modal when the user clicks outside the modal
+            window.onclick = (event) => {
+                if (event.target == productModal) {
+                    productModal.style.display = "none";
+                }
+            };
 
-                // Close the product modal when the user clicks on the close button
-                const closeModalButton = document.querySelector(".close");
-                closeModalButton.addEventListener("click", () => {
+            // Add event listener for product items
+            const productItems = document.querySelectorAll(".product-item");
+            productItems.forEach(item => {
+                item.addEventListener("click", event => {
+                    const product = JSON.parse(event.target.dataset.product);
+                    localStorage.setItem("selectedProduct", JSON.stringify(product));
                     productModal.style.display = "none";
                 });
+            });
+        });
 
-                // Close the product modal when the user clicks outside the modal
-                window.onclick = (event) => {
-                    if (event.target == productModal) {
-                        productModal.style.display = "none";
-                    }
-                };
+        let conversationHistory = [
+            { role: "system", content: "You are a helpful assistant." }
+        ];
 
-                // Add event listener for product items
-                const productItems = document.querySelectorAll(".product-item");
-                productItems.forEach(item => {
-                    item.addEventListener("click", event => {
-                        const product = JSON.parse(event.target.dataset.product);
-                        localStorage.setItem("selectedProduct", JSON.stringify(product));
-                        productModal.style.display = "none";
-                    });
+        //Send form body to server: 
+
+
+        document.getElementById('conversation-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const inputTextBox = document.getElementById('input-text-box');
+            const userMessage = inputTextBox.value;
+            inputTextBox.value = '';
+
+            addMessageToUI('user', userMessage);
+            conversationHistory.push({ role: "user", content: userMessage });
+
+            const selectedProduct = JSON.parse(localStorage.getItem("selectedProduct"));
+            const chosenBusiness = JSON.parse(localStorage.getItem("selectedBusiness"));
+
+            if (selectedProduct) {
+                const data = { messages: conversationHistory, product: selectedProduct };
+
+                const response = await fetch('/conversations', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
                 });
-            });
 
-            let conversationHistory = [
-                { role: "system", content: "You are a helpful assistant." }
-            ];
-
-            document.getElementById('conversation-form').addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const inputTextBox = document.getElementById('input-text-box');
-                const userMessage = inputTextBox.value;
-                inputTextBox.value = '';
-
-                addMessageToUI('user', userMessage);
-                conversationHistory.push({ role: "user", content: userMessage });
-
-
-                const selectedProduct = JSON.parse(localStorage.getItem("selectedProduct"));
-
-                const chosenBusiness = JSON.parse(localStorage.getItem("selectedBusiness"));
-
-
-                if (selectedProduct) {
-                    const data = { messages: conversationHistory, product: selectedProduct, chosenBusiness: chosenBusiness };
-
-                    const response = await fetch('/conversations', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(data),
-                    });
-
-                    if (response.ok) {
-                        const responseData = await response.json();
-                        const botMessage = responseData.response;
-                        conversationHistory.push({ role: "assistant", content: botMessage });
-                        addMessageToUI('bot', botMessage);
-                    } else {
-                        console.error('Error while sending request:', response.status, response.statusText);
-                    }
+                if (response.ok) {
+                    const responseData = await response.json();
+                    const botMessage = responseData.response;
+                    conversationHistory.push({ role: "assistant", content: botMessage });
+                    addMessageToUI('bot', botMessage);
                 } else {
-                    alert("Please choose a product before sending a message.");
+                    console.error('Error while sending request:', response.status, response.statusText);
                 }
-            });
-
-            function addMessageToUI(role, message) {
-                const messageContainer = document.createElement('div');
-                messageContainer.className = `message-container ${role}`;
-
-
-                const messageHeader = document.createElement('div');
-                messageHeader.className = 'message-header';
-                messageContainer.appendChild(messageHeader);
-
-
-                const profileIcon = document.createElement('div');
-                profileIcon.className = `profile-icon ${role}`;
-                messageContainer.appendChild(profileIcon);
-
-                messageHeader.appendChild(profileIcon);
-
-
-                //Format response text
-                const messageContent = document.createElement('div');
-                messageContent.className = 'message-content';
-                const formattedMessage = message.split('\n').filter(line => line.trim() !== '').map(line => {
-                    if (line.startsWith('- ') || line.startsWith('* ')) {
-                        const listItem = document.createElement('li');
-                        listItem.textContent = line.slice(2).trim();
-                        return listItem.outerHTML;
-                    } else {
-                        const paragraph = document.createElement('p');
-                        paragraph.textContent = line.trim();
-                        return paragraph.outerHTML;
-                    }
-                }).join('');
-
-                messageContent.innerHTML = formattedMessage;
-                messageContainer.appendChild(messageContent);
-
-                if (role === 'bot') {
-                    const optionsContainer = document.createElement('div');
-                    optionsContainer.className = 'options-container';
-                    messageHeader.appendChild(optionsContainer);
-
-                    const optionsList = document.createElement('ul');
-                    optionsList.className = 'options-list';
-                    optionsContainer.appendChild(optionsList);
-
-                    const options = ['Explain', 'Summarize', 'Actionize', 'Expand'];
-
-                    options.forEach(option => {
-                        const optionItem = document.createElement('li');
-                        const optionBtn = document.createElement('button');
-                        optionBtn.textContent = option;
-                        optionBtn.onclick = () => {
-                            console.log(`Clicked ${option} for message:`, message);
-                            // Perform your desired action for the option and message here
-                        };
-                        optionItem.appendChild(optionBtn);
-                        optionsList.appendChild(optionItem);
-                    });
-
-                    profileIcon.addEventListener('click', () => {
-                        optionsList.classList.toggle('open');
-                    });
-                }
-
-                document.getElementById('responses-container').appendChild(messageContainer);
+            } else {
+                alert("Please choose a product before sending a message.");
             }
+        });
 
-            document.addEventListener('click', (e) => {
-                if (!e.target.matches('.options-btn') && !e.target.matches('.options-dropdown') && !e.target.closest('.options-dropdown')) {
-                    const dropdowns = document.getElementsByClassName('options-dropdown');
-                    for (let i = 0; i < dropdowns.length; i++) {
-                        dropdowns[i].style.display = 'none';
-                    }
+
+
+
+
+
+        function addMessageToUI(role, message) {
+            const messageContainer = document.createElement('div');
+            messageContainer.className = `message-container ${role}`;
+
+            const messageHeader = document.createElement('div');
+            messageHeader.className = 'message-header';
+            messageContainer.appendChild(messageHeader);
+
+            const profileIcon = document.createElement('div');
+            profileIcon.className = `profile-icon ${role}`;
+            messageContainer.appendChild(profileIcon);
+
+            messageHeader.appendChild(profileIcon);
+
+            //Format response text
+            const messageContent = document.createElement('div');
+            messageContent.className = 'message-content';
+            const formattedMessage = message.split('\n').filter(line => line.trim() !== '').map(line => {
+                if (line.startsWith('- ') || line.startsWith('* ')) {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = line.slice(2).trim();
+                    return listItem.outerHTML;
+                } else {
+                    const paragraph = document.createElement('p');
+                    paragraph.textContent = line.trim();
+                    return paragraph.outerHTML;
                 }
-            });
+            }).join('');
+
+            messageContent.innerHTML = formattedMessage;
+            messageContainer.appendChild(messageContent);
 
 
+            document.getElementById('responses-container').appendChild(messageContainer);
+        }
 
+        document.addEventListener('click', (e) => {
+            if (!e.target.matches('.options-btn') && !e.target.matches('.options-dropdown') && !e.target.closest('.options-dropdown')) {
+                const dropdowns = document.getElementsByClassName('options-dropdown');
+                for (let i = 0; i < dropdowns.length; i++) {
+                    dropdowns[i].style.display = 'none';
+                }
+            }
+        });
 
-        </script>
+    </script>
 
-
-
-
-    </div>
-    <!-- Include scripts -->
 </body>
+
+</html>

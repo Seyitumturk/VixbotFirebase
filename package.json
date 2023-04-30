@@ -23,6 +23,7 @@
     "mongodb": "^5.2.0",
     "mongoose": "^7.0.3",
     "nodemon": "^2.0.22",
-    "openai": "^3.2.1"
+    "openai": "^3.2.1",
+    "tailwind": "^4.0.0"
   }
 }

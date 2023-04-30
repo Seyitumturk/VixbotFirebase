@@ -1,0 +1,444 @@
+::-webkit-scrollbar {
+    width: 5px;
+    /* Adjust the width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+    background-color: #F0F0F0;
+    /* Light gray background for the scrollbar track */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #A0A0A0;
+    /* Dark gray color for the scrollbar thumb */
+    border-radius: 3px;
+    /* Rounded corners for the scrollbar thumb */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    scrollbar-width: thin;
+    scrollbar-color: #A0A0A0 #F0F0F0;
+}
+
+body {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    background-color: #f0f0f0;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+
+.generate-btn {
+    background-image: url('../img/send-icon.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    width: 20px;
+    height: 20px;
+    border: none;
+    cursor: pointer;
+    margin-right: 10px;
+    background-color: transparent;
+}
+
+#input-text-box {
+    flex: 1;
+    padding: 10px;
+    font-size: 16px;
+    color: white;
+    opacity: 0.9;
+    margin-bottom: 0;
+    border: none;
+
+    background-color: transparent;
+    /* Use a lighter shade of grey with 85% opacity */
+    backdrop-filter: blur(10px);
+    /* Add frosted glass effect */
+    -webkit-backdrop-filter: blur(10px);
+    /* For Safari browser compatibility */
+    border-radius: 5px;
+    /* Add rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+#input-text-box::placeholder {
+    color: white;
+    opacity: 1;
+}
+
+#input-text-box:focus {
+    outline: none;
+}
+
+.gpt-input-group {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+
+.action-button {
+    height: 100px;
+    flex: 1;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: transparent;
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Vix =>*/
+
+.action-button:hover {
+    background-color: #0056b3;
+}
+
+.action-button:active {
+    background-color: #004085;
+}
+
+
+
+.card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin-top: 30px;
+}
+
+.card-body {
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.card-footer-vb {
+    width: 100%;
+    border-radius: 10px;
+    padding: 20px;
+    background: #e0e0e0;
+    /* This is a typical background color for light mode neumorphism */
+    box-shadow: 7px 7px 14px #d1d1d1,
+        /* This creates a shadow on one side */
+        -7px -7px 14px #ffffff;
+    /* This creates a light effect on the other side */
+    color: #333;
+    /* This sets the text color to a dark gray */
+}
+
+
+.wrapper {
+    display: flex;
+    width: 100%;
+}
+
+
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    min-height: 100vh;
+    /* Add min-height property */
+}
+
+
+.chat-content {
+    height: calc(100% - 60px);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column-reverse;
+    padding: 10px;
+}
+
+
+/* Sidebar =>*/
+@import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
+
+@import url(https://fonts.googleapis.com/css?family=Titillium+Web:300);
+
+.fa-2x {
+    font-size: 2em;
+}
+
+.fa {
+    position: relative;
+    display: table-cell;
+    width: 60px;
+    height: 36px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 20px;
+}
+
+
+.main-menu:hover,
+nav.main-menu.expanded {
+    width: 250px;
+    overflow: visible;
+}
+
+.main-menu {
+    background: #212121;
+    border-right: 1px solid #e5e5e5;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+    left: 0;
+    width: 60px;
+    overflow: hidden;
+    -webkit-transition: width .05s linear;
+    transition: width .05s linear;
+    -webkit-transform: translateZ(0) scale(1, 1);
+    z-index: 1000;
+}
+
+.main-menu>ul {
+    margin: 7px 0;
+}
+
+.main-menu li {
+    position: relative;
+    display: block;
+    width: 250px;
+}
+
+.main-menu li>a {
+    position: relative;
+    display: table;
+    border-collapse: collapse;
+    border-spacing: 0;
+    color: #999;
+    font-family: arial;
+    font-size: 14px;
+    text-decoration: none;
+    -webkit-transform: translateZ(0) scale(1, 1);
+    -webkit-transition: all .1s linear;
+    transition: all .1s linear;
+
+}
+
+.main-menu .nav-icon {
+    position: relative;
+    display: table-cell;
+    width: 60px;
+    height: 36px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 18px;
+}
+
+.main-menu .nav-text {
+    position: relative;
+    display: table-cell;
+    vertical-align: middle;
+    width: 190px;
+    font-family: 'Titillium Web', sans-serif;
+}
+
+.main-menu>ul.logout {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+.no-touch .scrollable.hover {
+    overflow-y: hidden;
+}
+
+.no-touch .scrollable.hover:hover {
+    overflow-y: auto;
+    overflow: visible;
+}
+
+a:hover,
+a:focus {
+    text-decoration: none;
+}
+
+nav {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+nav ul,
+nav li {
+    outline: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.main-menu li:hover>a,
+nav.main-menu li.active>a,
+.dropdown-menu>li>a:hover,
+.dropdown-menu>li>a:focus,
+.dropdown-menu>.active>a,
+.dropdown-menu>.active>a:hover,
+.dropdown-menu>.active>a:focus,
+.no-touch .dashboard-page nav.dashboard-menu ul li:hover a,
+.dashboard-page nav.dashboard-menu ul li.active a {
+    color: #fff;
+    background-color: #000000;
+}
+
+.area {
+    float: left;
+    background: #e2e2e2;
+    width: 100%;
+    height: 100%;
+}
+
+@font-face {
+    font-family: 'Titillium Web';
+    font-style: normal;
+    font-weight: 300;
+    src: local('Titillium WebLight'), local('TitilliumWeb-Light'), url(http://themes.googleusercontent.com/static/fonts/titilliumweb/v2/anMUvcNT0H1YN4FII8wpr24bNCNEoFTpS2BTjF6FB5E.woff) format('woff');
+}
+
+.hidden {
+    display: none;
+}
+
+
+/* Conversation*/
+
+.typing-animation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    visibility: hidden;
+    /* Initially set to hidden */
+}
+
+.typing-animation span {
+    width: 8px;
+    height: 8px;
+    background-color: #333;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 0 2px;
+    animation: typing 1.4s infinite;
+}
+
+.typing-animation span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing-animation span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes typing {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+
+.chat-content {
+    background: rgba(255, 255, 255, 0.1);
+    /* Use a white color with low opacity */
+    backdrop-filter: blur(10px);
+    /* Apply a blur to the elements behind the container */
+    border-radius: 10px;
+    /* Rounded corners */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    /* A light border for some contrast */
+    padding: 20px;
+    /* Some padding */
+    margin: 20px;
+    /* And some margin */
+    color: black;
+    /* White text for better readability */
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    /* Optional: add a shadow for a lifted effect */
+}
+
+.message-container {
+    background: rgba(255, 255, 255, 0.1);
+    /* Same as above */
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 10px;
+    /* You might want less padding on individual messages */
+    margin-bottom: 10px;
+    /* Some space between messages */
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    z-index: 9999;
+}
+
+.modal-content {
+    width: 80%;
+    max-width: 400px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-out;
+}
+
+.modal.open .modal-content {
+    transform: translateX(0);
+}
+
+
+.floating-btn-container {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+}
+
+.floating-btn {
+    font-size: 24px;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    background: #999;
+    color: white;
+    border: none;
+    cursor: pointer;
+}

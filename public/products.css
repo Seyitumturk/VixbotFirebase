@@ -1,0 +1,22 @@
+body {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    background-color: #f0f0f0;
+}
+
+
+.wrapper {
+    display: flex;
+    width: 100%;
+}
+
+
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    min-height: 100vh;
+    /* Add min-height property */
+}

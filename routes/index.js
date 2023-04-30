@@ -13,22 +13,21 @@ const { auth, adminAuth, signInWithEmailAndPassword, createUserWithEmailAndPassw
 //Models 
 
 const Product = require('../models/Products');
-const Template = require('../models/Templates');
 const Business = require('../models/businesses');
 const User = require('../models/Users');
+const Templates = require('../models/Templates');
 
-
+const admin = require('firebase-admin');
 
 
 const { Configuration, OpenAIApi } = require('openai');
 
-let usersCollection;
 
 
 // Authentication middleware to check if a user is logged in before proceeding to requested route
 
 
-const admin = require('firebase-admin');
+
 
 async function isAuthenticated(req, res, next) {
     const idToken = req.cookies.token;
@@ -129,9 +128,6 @@ router.post('/onboarding/create-business', isAuthenticated, async (req, res) => 
 });
 
 
-
-
-
 router.post('/register', withDbConnection, async (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
@@ -164,7 +160,7 @@ router.post('/login', withDbConnection, async (req, res) => {
 
         // Set the ID token as a cookie named 'token'
         res.cookie('token', idToken, { httpOnly: true });
-        res.redirect('/onboarding');
+        res.redirect('/conversations');
     } catch (error) {
         res.status(400).send(`Error: ${error.message}`);
     }
@@ -177,6 +173,19 @@ router.post('/login', withDbConnection, async (req, res) => {
 router.get('/templates', isAuthenticated, (req, res) => {  // Render maps page if user is logged in
     res.render('templates');
 });
+
+router.post('/templates', isAuthenticated, async (req, res) => {  // Render maps page if user is logged in
+    try {
+        const templateData = req.body;
+        const template = new Templates(templateData);
+        await template.save();
+        res.json({ message: 'Template created successfully', template });
+    } catch (error) {
+        console.error('Error while creating template:', error);
+        res.status(500).json({ message: 'Error while creating template' });
+    }
+});
+
 router.post('/create-template', isAuthenticated, async (req, res) => {
     try {
         const templateData = req.body;
@@ -239,10 +248,12 @@ router.get('/products', isAuthenticated, async (req, res) => {
         res.status(500).json({ error: 'Failed to retrieve products' });
     }
 });
-
 router.post('/create-product', isAuthenticated, async (req, res) => {
     try {
         const productData = req.body;
+
+        // Log the received product data
+        console.log('Received product data:', productData);
 
         // Create a new product object with the request data
         const product = new Product({
@@ -256,11 +267,12 @@ router.post('/create-product', isAuthenticated, async (req, res) => {
 
         // Save the product to the database
         const result = await product.save();
+        console.log('Product saved:', result);
 
         // Render the product card template with the new product data
-        res.render('partials/product-card', { product: result }, (err, html) => {
+        res.render('products', { product: result }, (err, html) => {
             if (err) {
-                console.error(err);
+                console.error('Failed to render product card template:', err);
                 res.status(500).json({ error: 'Failed to render product card template' });
             } else {
                 // Send the product card HTML back to the client
@@ -268,7 +280,7 @@ router.post('/create-product', isAuthenticated, async (req, res) => {
             }
         });
     } catch (err) {
-        console.error(err);
+        console.error('Error occurred:', err);
 
         // Handle validation errors
         if (err.name === 'ValidationError') {
@@ -279,8 +291,6 @@ router.post('/create-product', isAuthenticated, async (req, res) => {
         }
     }
 });
-
-
 
 router.get('/get_businesses', isAuthenticated, async (req, res) => {
     const businesses = await Business.find({ user_id: req.user._id });
@@ -301,23 +311,20 @@ router.post('/set_selected_business', isAuthenticated, async (req, res) => {
 
 
 
-
-
-
 // Openai Routes
 
 router.get('/conversations', isAuthenticated, async (req, res) => {
     try {
         const user = await User.findById(req.user._id);
-        const businesses = await Business.find({ user_id: user._id });
-        const chosenBusinessId = req.query.business_id;
-        const chosenBusiness = businesses.find(business => business._id.toString() === chosenBusinessId);
+        const business = await Business.findOne({ user_id: user._id });
+
+        const templates = await Templates.find({ user_id: req.user._id }); // Retrieve the products from the database
 
         const products = await Product.find({ user_id: req.user._id }); // Retrieve the products from the database
-        const templates = 'New Template'; // Replace this with the selected product name
+        console.log(products)
 
-        // Pass the businesses, products, and chosenBusiness variables to the conversations.ejs file
-        res.render('conversations', { businesses, products, chosenBusiness });
+        // Pass the business and products and templatevariables to the conversations.ejs file
+        res.render('conversations', { business, products, templates });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -327,14 +334,17 @@ router.get('/conversations', isAuthenticated, async (req, res) => {
 // MAIN BABY
 
 router.post('/conversations', isAuthenticated, async (req, res) => {
+    console.log(req.body);
+    const user = await User.findById(req.user._id);
+    const chosenBusiness = await Business.findOne({ user_id: user._id });
 
-    const { messages, temperature, product, chosenBusiness } = req.body;
+    const { messages, temperature, product } = req.body;
     const promptBody = `You are a helpful assistant. Your user's business is: ${chosenBusiness.name}, which operates in the ${chosenBusiness.industry} industry. They are focused on ${chosenBusiness.stands_for}, and their main competitors are ${chosenBusiness.main_competitors}. Their strengths are ${chosenBusiness.strengths}, and their weaknesses are ${chosenBusiness.weaknesses}. Their typical growth rate is ${chosenBusiness.typical_growth}, and their team size and structure are ${chosenBusiness.teamsize_and_structure}. Their company culture is described as ${chosenBusiness.company_culture}, and their main business goals are ${chosenBusiness.main_bussiness_goals} .Your user's selected product is: ${product.product_name}. Its main features are: ${product.main_features}. Its unique selling points are: ${product.unique_selling_points}. The pricing model is: ${product.pricing_model}. The distribution channels are: ${product.distribution_channels}.`;
 
 
     const configuration = new Configuration({
         organization: "org-JIjsH2CYD6sKM4gstuapQD1f",
-        apiKey: "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"
+        apiKey: "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"
     })
 
     const openai = new OpenAIApi(configuration);
