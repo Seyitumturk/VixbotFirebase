@@ -1,7 +1,18 @@
+html,
+body,
+.custom-body {
+    height: 100%;
+    min-height: 100vh;
+    /* Add this line */
+}
+
 .wrapper {
     display: flex;
     width: 100%;
+    height: 100%;
 }
+
+/* ... rest of the CSS ... */
 
 .main-content {
     flex: 1;
@@ -40,4 +51,8 @@
     transform: translate(0.75rem, 0.75rem);
     /* Substitute for translate-x-3 translate-y-3 */
     z-index: -1;
+}
+
+#bigSidebar {
+    height: 100%;
 }

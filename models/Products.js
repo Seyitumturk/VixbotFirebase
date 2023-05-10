@@ -30,7 +30,6 @@ const productsSchema = new mongoose.Schema({
 
     gpt_product_summary: {
         type: String,
-
     },
 
 

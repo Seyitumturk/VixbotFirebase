@@ -11,11 +11,10 @@ const { auth, adminAuth, signInWithEmailAndPassword, createUserWithEmailAndPassw
 
 
 //Models 
-
-const Product = require('../models/Products');
-const Business = require('../models/businesses');
 const User = require('../models/Users');
-const Templates = require('../models/Templates');
+const Business = require('../models/businesses');
+const Product = require('../models/Products');
+const Template = require('../models/Template');
 
 const admin = require('firebase-admin');
 
@@ -25,9 +24,6 @@ const { Configuration, OpenAIApi } = require('openai');
 
 
 // Authentication middleware to check if a user is logged in before proceeding to requested route
-
-
-
 
 async function isAuthenticated(req, res, next) {
     const idToken = req.cookies.token;
@@ -58,9 +54,6 @@ async function isAuthenticated(req, res, next) {
 
 
 
-
-
-
 // Login routes 
 
 router.get('/', (req, res) => {
@@ -74,8 +67,6 @@ router.get('/login', (req, res) => {
 router.get('/register', (req, res) => {
     res.render('register');
 });
-
-
 
 
 router.get('/onboarding', isAuthenticated, (req, res) => {
@@ -167,17 +158,21 @@ router.post('/login', withDbConnection, async (req, res) => {
 });
 
 
-
 //Template Routes
 
 router.get('/templates', isAuthenticated, (req, res) => {  // Render maps page if user is logged in
     res.render('templates');
 });
 
-router.post('/templates', isAuthenticated, async (req, res) => {  // Render maps page if user is logged in
+router.post('/templates', isAuthenticated, async (req, res) => {
     try {
         const templateData = req.body;
-        const template = new Templates(templateData);
+        const user_id = req.user._id; // Get user_id from the authenticated user
+
+        // Add user_id to the templateData object
+        templateData.user_id = user_id;
+
+        const template = new Template(templateData);
         await template.save();
         res.json({ message: 'Template created successfully', template });
     } catch (error) {
@@ -186,45 +181,8 @@ router.post('/templates', isAuthenticated, async (req, res) => {  // Render maps
     }
 });
 
-router.post('/create-template', isAuthenticated, async (req, res) => {
-    try {
-        const templateData = req.body;
 
-        // Create a new template object with the request data
-        const template = new Template({
-            user_id: req.user._id,
-            template_name: templateData.product_name,
-            main_feature: templateData.main_feature,
-            unique_selling_points: templateData.unique_selling_points,
-            pricing_model: templateData.pricing_model,
-            distribution_channels: templateData.distribution_channels,
-        });
 
-        // Save the template to the database
-        const result = await template.save();
-
-        // Render the template card template with the new template data
-        res.render('partials/template-card', { template: result }, (err, html) => {
-            if (err) {
-                console.error(err);
-                res.status(500).json({ error: 'Failed to render template-card template' });
-            } else {
-                // Send the template card HTML back to the client
-                res.send(html);
-            }
-        });
-    } catch (err) {
-        console.error(err);
-
-        // Handle validation errors
-        if (err.name === 'ValidationError') {
-            const errors = Object.values(err.errors).map(e => e.message);
-            res.status(400).json({ error: errors });
-        } else {
-            res.status(500).json({ error: 'Failed to create template' });
-        }
-    }
-});
 router.get('/get_templates', isAuthenticated, async (req, res) => {
     const templates = await Template.find({ user_id: req.user._id });
     res.json(templates);
@@ -318,10 +276,12 @@ router.get('/conversations', isAuthenticated, async (req, res) => {
         const user = await User.findById(req.user._id);
         const business = await Business.findOne({ user_id: user._id });
 
-        const templates = await Templates.find({ user_id: req.user._id }); // Retrieve the products from the database
+        const templates = await Template.find({ user_id: req.user._id }).lean().exec();
+        console.log(req.user._id)
+
+        console.log(templates)
 
         const products = await Product.find({ user_id: req.user._id }); // Retrieve the products from the database
-        console.log(products)
 
         // Pass the business and products and templatevariables to the conversations.ejs file
         res.render('conversations', { business, products, templates });
@@ -344,7 +304,7 @@ router.post('/conversations', isAuthenticated, async (req, res) => {
 
     const configuration = new Configuration({
         organization: "org-JIjsH2CYD6sKM4gstuapQD1f",
-        apiKey: "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"
+        apiKey: "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"
     })
 
     const openai = new OpenAIApi(configuration);

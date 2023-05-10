@@ -10,6 +10,9 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+
 </head>
 
 <body>
@@ -20,11 +23,7 @@
         <div id="bigSidebar"
             class="flex flex-col items-center w-64 h-full overflow-hidden text-gray-400 bg-gray-900 rounded ">
             <a class="flex items-center w-full px-3 mt-3" href="#">
-                <svg class="w-14 h-14 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                    fill="currentColor">
-                    <path
-                        d="M11 17a1 1 0 001.447.894l4-2A1 1 0 0017 15V9.236a1 1 0 00-1.447-.894l-4 2a1 1 0 00-.553.894V17zM15.211 6.276a1 1 0 000-1.788l-4.764-2.382a1 1 0 00-.894 0L4.789 4.488a1 1 0 000 1.788l4.764 2.382a1 1 0 00.894 0l4.764-2.382zM4.447 8.342A1 1 0 003 9.236V15a1 1 0 00.553.894l4 2A1 1 0 009 17v-5.764a1 1 0 00-.553-.894l-4-2z" />
-                </svg>
+               
                 <span class="ml-2 text-sm font-bold">VixBot</span>
             </a>
             <a class="flex items-center w-full h-12 px-3 mt-2 rounded hover:bg-gray-700 hover:text-gray-300 mt-20"
@@ -45,13 +44,51 @@
                 <!-- Add an appropriate SVG icon for Templates -->
                 <span class="ml-2 text-sm font-medium">Templates</span>
             </a>
-
+            <a class="flex items-center w-full h-12 px-3 mt-2 rounded hover:bg-gray-700 hover:text-gray-300"
+                href="/conversations">
+                <!-- Add an appropriate SVG icon for Collaborate -->
+                <span class="ml-2 text-sm font-medium">Collaborate</span>
+                <span class="ml-2 px-2 py-1 text-sm font-medium text-white bg-blue-600 ml-14 rounded">NEW</span>
+            </a>
 
 
         </div>
         <!-- Component End  -->
 
         <div class="main-content">
+
+
+
+            <div class="icon-menu-container">
+
+                <div class="icon-menu">
+                    <button type="button" class="expandable-btn">
+                        <span class="material-icons">campaign</span>
+                        Marketing
+                    </button>
+                    <div class="icon-menu-content">
+                        <button type="button" class="circle-icon"><i class="material-icons">show_chart</i>
+                            Sales</button>
+                        <button type="button" class="circle-icon"><i class="material-icons">monetization_on</i>
+                            Finance</button>
+                        <button type="button" class="circle-icon"><i class="material-icons">people</i> HR</button>
+                        <button type="button" class="circle-icon"><i class="material-icons">gavel</i> Legal</button>
+                        <button type="button" class="circle-icon"><i class="material-icons">desktop_windows</i>
+                            IT</button>
+                        <button type="button" class="circle-icon"><i class="material-icons">build</i> Product
+                            Dev</button>
+                        <button type="button" class="circle-icon"><i class="material-icons">pie_chart</i>
+                            Analytics</button>
+                        <button type="button" class="circle-icon"><i class="material-icons">headset_mic</i> Customer
+                            Service</button>
+                        <button type="button" class="circle-icon"><i class="material-icons">create</i> Content
+                            Creation</button>
+                    </div>
+                </div>
+
+
+            </div>
+
 
             <div class="card shadow">
                 <div class="card-body">
@@ -120,23 +157,12 @@
 
                     <div class="button-container">
                         <div class="action-buttons">
-
-                            <button id="chooseProductButton" class="action-button">Choose Product</button>
-                            <button id="chooseTemplateButton" class="action-button">Choose Template</button>
-                            <div class="icon-menu">
-                                <button type="button" class="expandable-btn">Marketing</button>
-                                <div class="icon-menu-content">
-                                    <button type="button" class="circle-icon">Sales</button>
-                                    <button type="button" class="circle-icon">Finance</button>
-                                    <button type="button" class="circle-icon">HR</button>
-                                    <button type="button" class="circle-icon">Legal</button>
-                                    <button type="button" class="circle-icon">IT</button>
-                                    <button type="button" class="circle-icon">Product Dev</button>
-                                    <button type="button" class="circle-icon">Analytics</button>
-                                    <button type="button" class="circle-icon">Customer Service</button>
-                                    <button type="button" class="circle-icon">Content Creation</button>
-                                </div>
+                            <div class="flex"> <!-- Add a flex container -->
+                                <button id="chooseProductButton" class="action-button mr-2">Choose Product</button>
+                                <button id="chooseTemplateButton" class="action-button">Choose Template</button>
                             </div>
+
+
                         </div>
 
                     </div>
@@ -145,13 +171,44 @@
         </div>
     </div>
 
+    <script>
+        const expandableBtn = document.getElementById("expandable-btn");
+        const iconMenuContent = document.querySelector(".icon-menu-content");
+
+        expandableBtn.addEventListener("click", function () {
+            iconMenuContent.classList.toggle("hidden");
+        });
+
+        const circleIcons = document.querySelectorAll(".circle-icon");
+
+        circleIcons.forEach(function (circleIcon) {
+            circleIcon.addEventListener("click", function () {
+                expandableBtn.innerHTML = circleIcon.innerHTML;
+                iconMenuContent.classList.add("hidden");
+            });
+        });
+    </script>
+
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+
+
+
+
+
+
 
 
 
 
 
     <script>
-        //Modals handlers
+
+
+        //Product Selection and Modal Handlres
 
         document.addEventListener("DOMContentLoaded", () => {
             // Get the modal and button elements
@@ -187,11 +244,49 @@
             });
         });
 
+        // Template Selection and  Modal Handlers 
+
+        document.addEventListener("DOMContentLoaded", () => {
+            // Get the modal and button elements
+            const templateModal = document.getElementById("templateModal");
+            const chooseTemplateButton = document.getElementById("chooseTemplateButton");
+
+            // Add this event listener for the "Choose Template" button
+            chooseTemplateButton.addEventListener("click", () => {
+                templateModal.style.display = "block";
+            });
+
+            // Close the template modal when the user clicks on the close button
+            const closeModalButton = document.querySelector(".close");
+            closeModalButton.addEventListener("click", () => {
+                templateModal.style.display = "none";
+            });
+
+            // Close the template modal when the user clicks outside the modal
+            window.onclick = (event) => {
+                if (event.target == templateModal) {
+                    templateModal.style.display = "none";
+                }
+            };
+
+            // Add event listener for template items
+            const templateItems = document.querySelectorAll(".template-item");
+            templateItems.forEach(item => {
+                item.addEventListener("click", event => {
+                    const template = JSON.parse(event.target.dataset.template);
+                    localStorage.setItem("selectedTemplate", JSON.stringify(template));
+                    templateModal.style.display = "none";
+                });
+            });
+        });
+
+
+
+        //Send form body to server: 
+
         let conversationHistory = [
             { role: "system", content: "You are a helpful assistant." }
         ];
-
-        //Send form body to server: 
 
 
         document.getElementById('conversation-form').addEventListener('submit', async (e) => {
@@ -203,11 +298,15 @@
             addMessageToUI('user', userMessage);
             conversationHistory.push({ role: "user", content: userMessage });
 
+            // Saving selected elemenets to local storage
             const selectedProduct = JSON.parse(localStorage.getItem("selectedProduct"));
-            const chosenBusiness = JSON.parse(localStorage.getItem("selectedBusiness"));
+            const selectedTemplate = JSON.parse(localStorage.getItem("selectedTemplate"));
 
-            if (selectedProduct) {
-                const data = { messages: conversationHistory, product: selectedProduct };
+
+
+
+            if (selectedProduct && selectedTemplate) {
+                const data = { messages: conversationHistory, product: selectedProduct, template: selectedTemplate };
 
                 const response = await fetch('/conversations', {
                     method: 'POST',
@@ -226,7 +325,7 @@
                     console.error('Error while sending request:', response.status, response.statusText);
                 }
             } else {
-                alert("Please choose a product before sending a message.");
+                alert("Please choose a product and a template before sending a message.");
             }
         });
 
@@ -234,7 +333,7 @@
 
 
 
-
+        // Adding GPT  messages to the UI 
         function addMessageToUI(role, message) {
             const messageContainer = document.createElement('div');
             messageContainer.className = `message-container ${role}`;

@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
-const templatesSchema = new mongoose.Schema({
+const templateSchema = new mongoose.Schema({
     user_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'Users'
     },
     template_name: {
         type: String,
@@ -27,6 +27,6 @@ const templatesSchema = new mongoose.Schema({
     }
 });
 
-const Templates = mongoose.model('Templates', templatesSchema);
+const Template = mongoose.model('Templates', templateSchema);
 
-module.exports = Templates;
+module.exports = Template;

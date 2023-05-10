@@ -9,6 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="/products.css">
+    <link href="https://cdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
 </head>
 
@@ -44,6 +45,11 @@
                 <!-- Add an appropriate SVG icon for Templates -->
                 <span class="ml-2 text-sm font-medium">Templates</span>
             </a>
+            <a class="flex items-center w-full h-12 px-3 mt-2 rounded hover:bg-gray-700 hover:text-gray-300"
+                href="/conversations">
+                <!-- Add an appropriate SVG icon for Templates -->
+                <span class="ml-2 text-sm font-medium">Collaborate</span>
+            </a>
 
 
 
@@ -52,107 +58,109 @@
 
             <!-- Page content -->
             <div class="container-fluid mt--7">
-                <!-- Table -->
+                <!-- Header -->
                 <div class="row">
                     <div class="col">
                         <div class="card shadow">
-                            <div class="card-header bg-transparent">
+                            <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
                                 <h3 class="mb-0">Products</h3>
                                 <button id="add-product-btn" class="btn btn-primary">+</button>
-                            </div>
-                            <div id="card-body-extend" class="card-body">
-                                <div class="row icon-examples">
-                                    <!-- Add Product button -->
-
-
-
-
-                                    <!-- Product creation form (hidden by default) -->
-
-                                    <!-- Create a new modal for creating a new product -->
-                                    <div class="modal fade" id="create-product-modal" tabindex="-1" role="dialog"
-                                        aria-labelledby="create-product-modal-label" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="create-product-modal-label">
-                                                        Create a New Product</h5>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <!-- Add a single question at a time -->
-                                                    <form id="create-product-form" method="POST"
-                                                        action="/create-product">
-                                                        <div class="form-group" id="product-name-group">
-                                                            <label for="product-name">Product Name:</label>
-                                                            <input type="text" id="product-name" name="product_name"
-                                                                class="form-control" required>
-                                                        </div>
-                                                        <div class="form-group" id="main-features-group">
-                                                            <label for="main-features">Main Features:</label>
-                                                            <textarea id="main-features" name="main_features"
-                                                                class="form-control" required></textarea>
-                                                        </div>
-                                                        <div class="form-group" id="unique-selling-points-group">
-                                                            <label for="unique-selling-points">Unique Selling
-                                                                Points:</label>
-                                                            <textarea id="unique-selling-points"
-                                                                name="unique_selling_points" class="form-control"
-                                                                required></textarea>
-                                                        </div>
-                                                        <div class="form-group" id="pricing-model-group">
-                                                            <label for="pricing-model">Pricing Model:</label>
-                                                            <select id="pricing-model" name="pricing_model"
-                                                                class="form-control" required>
-                                                                <option value="">Choose a pricing model</option>
-                                                                <option value="pay-per-use">Pay-per-use</option>
-                                                                <option value="subscription">Subscription
-                                                                </option>
-                                                                <option value="one-time-fee">One-time fee
-                                                                </option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="form-group" id="distribution-channels-group">
-                                                            <label for="distribution-channels">Distribution
-                                                                Channels:</label>
-                                                            <input type="text" id="distribution-channels"
-                                                                name="distribution_channels" class="form-control"
-                                                                required>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-dismiss="modal">Cancel</button>
-                                                    <button type="button" class="btn btn-primary"
-                                                        id="next-btn">Next</button>
-                                                    <button type="button" class="btn btn-primary"
-                                                        id="submit-btn">Submit</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- Footer -->
+
+                <!-- Products container -->
+                <div class="row" id="products-container">
+                    <!-- Newly created products will be added here -->
+                </div>
+
+                <!-- Create Product Modal -->
+                <div class="modal" id="create-product-modal">
+                    <div class="blur"></div>
+                    <div class="modal-content">
+                        <h3 class="mb-4">Create a New Product</h3>
+                        <form id="create-product-form" method="POST" action="/create-product">
+                            <div id="product-name-group">
+                                <label for="product-name">Product Name:</label>
+                                <input type="text" class="form-control" id="product-name" name="product_name" required>
+                            </div>
+                            <div id="main-features-group" class="hidden">
+                                <label for="main-features">Main Features:</label>
+                                <textarea class="form-control" id="main-features" name="main_features" rows="3"
+                                    required></textarea>
+                            </div>
+                            <div id="unique-selling-points-group" class="hidden">
+                                <label for="unique-selling-points">Unique Selling Points:</label>
+                                <textarea class="form-control" id="unique-selling-points" name="unique_selling_points"
+                                    rows="3" required></textarea>
+                            </div>
+                            <div id="pricing-model-group" class="hidden">
+                                <label for="pricing-model">Pricing Model:</label>
+                                <input type="text" class="form-control" id="pricing-model" name="pricing_model"
+                                    required>
+                            </div>
+                            <div id="distribution-channels-group" class="hidden">
+                                <label for="distribution-channels">Distribution Channels:</label>
+                                <input type="text" class="form-control" id="distribution-channels"
+                                    name="distribution_channels" required>
+                            </div>
+                        </form>
+
+                        <div class="mt-4">
+                            <button type="button" class="btn btn-secondary mr-2" id="cancel-btn">Cancel</button>
+                            <button type="button" class="btn btn-primary" id="next-btn">Next</button>
+                            <button type="button" class="btn btn-primary" id="submit-btn">Submit</button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- ... -->
 
             </div>
         </div>
-
     </div>
 
     <script>
-
         $(document).ready(function () {
             // Handle the "Add Product" button click event
             $("#add-product-btn").on("click", function () {
-                $("#create-product-modal").modal("show");
+                $("#create-product-modal").show();
+            });
+
+            // Handle the "Cancel" button click event
+            $("#cancel-btn").on("click", function () {
+                $("#create-product-modal").hide();
+            });
+
+            // Setup modal question flow
+            const questionGroups = [
+                "product-name-group",
+                "main-features-group",
+                "unique-selling-points-group",
+                "pricing-model-group",
+                "distribution-channels-group",
+            ];
+
+            let currentQuestionIndex = 0;
+            function showQuestion(index) {
+                questionGroups.forEach((group, i) => {
+                    $(`#${group}`).css("display", index === i ? "block" : "none");
+                });
+                $("#next-btn").css("display", index < questionGroups.length - 1 ? "inline-block" : "none");
+                $("#submit-btn").css("display", index === questionGroups.length - 1 ? "inline-block" : "none");
+            }
+
+            $("#next-btn").on("click", function () {
+                currentQuestionIndex++;
+                showQuestion(currentQuestionIndex);
+            });
+
+            // When the modal is shown, display the first question
+            $("#create-product-modal").on("shown.bs.modal", function () {
+                currentQuestionIndex = 0;
+                showQuestion(currentQuestionIndex);
             });
 
             // Handle the form submission
@@ -172,21 +180,31 @@
                         type: "POST",
                         url: "/create-product",
                         data: formData,
-                        dataType: "html",
+                        dataType: "json",
                     });
 
-                    // Append the returned HTML to the card body
-                    $("#card-body-extend").append(response);
+                    // Create a new product card with the received data and append it to the products container
+                    const productCardHtml = `
+            <div class="col-sm-6 col-lg-3 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">${response.template.product_name}</h5>
+                        <p class="card-text">${response.template.main_features}</p>
+                    </div>
+                </div>
+            </div>`;
+                    $("#products-container").append(productCardHtml);
 
-                    // Close the modal and clear the form
-                    $("#create-product-modal").modal("hide");
-                    $("#create-product-form")[0].reset();
                 } catch (error) {
                     console.error("Server response:", error.responseText);
-                    alert("Failedd to create a new product. Please try again.");
+                    alert("Failed to create a new product. Please try again.");
                 }
             });
         });
+
+
+
     </script>
+
 
 </body>
