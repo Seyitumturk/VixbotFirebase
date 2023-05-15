@@ -304,7 +304,7 @@ router.post('/conversations', isAuthenticated, async (req, res) => {
 
     const configuration = new Configuration({
         organization: "org-JIjsH2CYD6sKM4gstuapQD1f",
-        apiKey: "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"
+        apiKey: "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"
     })
 
     const openai = new OpenAIApi(configuration);
@@ -324,6 +324,11 @@ router.post('/conversations', isAuthenticated, async (req, res) => {
     console.log(completion.data.choices[0].message);
     const botMessage = completion.data.choices[0].message.content;
     res.json({ response: botMessage });
+
+
+
+    
+
 
 
 });

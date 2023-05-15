@@ -22,6 +22,12 @@ body,
     min-height: 100vh;
 }
 
+#bigSidebar {
+    position: relative;
+    z-index: 1;
+    border-right: 1px solid lightgray;
+}
+
 .neumorphic {
     background-color: #F2F2F2;
     /* Substitute for bg-gray-100 */

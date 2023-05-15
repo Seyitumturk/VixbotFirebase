@@ -2,7 +2,6 @@ body {
     display: flex;
     height: 100vh;
     width: 100%;
-    background-color: #f0f0f0;
 }
 
 .wrapper {
@@ -18,22 +17,51 @@ body {
     min-height: 100vh;
 }
 
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: none;
-    z-index: 1000;
+.br-bt {
+    border-bottom: 2px solid gray;
 }
 
-.blur {
-    position: absolute;
+.sidebar-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+}
+
+.logo-image {
+    width: 100px;
+    /* Adjust as necessary */
+    height: 100px;
+    /* Adjust as necessary */
+    margin-left: 50px;
+}
+
+#bigSidebar {
+    position: relative;
+    z-index: 1;
+    border-right: 1px solid lightgray;
+}
+
+.sidebar-text {
+    text-align: center;
+    color: black;
+    font-size: 30px;
+    /* Adjust as necessary */
+    padding-top: 10px;
+    /* Adjust as necessary */
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
     width: 100%;
     height: 100%;
+    overflow: auto;
     background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1001;
 }
 
 .modal-content {
@@ -41,10 +69,129 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #fff;
-    padding: 2rem;
-    width: 80%;
-    max-width: 500px;
-    border-radius: 8px;
+    background-color: #fefefe;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 30%;
+    /* Adjust as per your need */
+    height: 60%;
+    /* Adjust as per your need */
     z-index: 1002;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    /* Add this */
+
+
 }
+
+.modal-left,
+.modal-right {
+    flex: 1;
+    padding: 20px;
+    border-right: 1px solid lightgray;
+    flex-grow: 1;
+    /* Add this */
+}
+
+input:focus {
+    outline: none;
+}
+
+
+/* style the product cards */
+.card {
+    width: 100%;
+    box-sizing: border-box;
+
+}
+
+.modal-content .btn {
+    margin-right: 10px;
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid lightgray;
+    width: 100%;
+    padding: 20px;
+
+}
+
+/* ... */
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    /* Add this */
+
+}
+
+#add-product-btn {
+    font-size: xx-large;
+}
+
+/* ... */
+
+/* The Button */
+.btn {
+    padding: 12px 24px;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: none;
+    outline: none;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 9px #999;
+    transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+}
+
+/* Button on mouse hover */
+.btn:hover {
+    box-shadow: 0 7px #777;
+}
+
+/* Button on mouse down - simulate a click */
+.btn:active {
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
+/* Button on focus - create an outline (optional) */
+.btn:focus {
+    outline: none;
+    border: 1px solid #999;
+}
+
+/* Specific styles for primary and secondary buttons */
+.btn-primary {
+    color: #fff;
+    background-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-primary:active {
+    background-color: #004085;
+}
+
+.btn-secondary {
+    color: #fff;
+    background-color: #6c757d;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+.btn-secondary:active {
+    background-color: #454d55;
+}
+
+
+/* Sidebar */
