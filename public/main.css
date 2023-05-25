@@ -91,8 +91,8 @@ body {
 }
 
 
-.action-button {
-    height: 100px;
+.action-buttons {
+    height: 50px;
     flex: 1;
     width: 100%;
     box-sizing: border-box;
@@ -275,7 +275,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
+    height: 50%;
 }
 
 .expandable-btn {
@@ -334,8 +334,6 @@ body {
     font-size: 0.8em;
     /* Add more properties as needed */
 }
-
-
 .main-content {
     display: flex;
     flex-direction: column;

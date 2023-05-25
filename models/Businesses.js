@@ -5,6 +5,7 @@ const businessSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Users'
   },
+
   name: {
     type: String,
     trim: true

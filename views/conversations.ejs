@@ -21,7 +21,7 @@
 
         <!-- Component Start -->
         <div id="bigSidebar"
-            class="flex flex-col items-center w-64 h-full overflow-hidden text-black-400 bg-white-900 box ">
+            class="flex flex-col items-center w-64 min-w-64 h-full overflow-hidden text-black-400 bg-white-900 box ">
 
             <div class="sidebar-logo bg-red">
                 <img class="logo-image mt-3" src="/img/brand/vb.svg" alt="logo" />
@@ -91,10 +91,6 @@
         <!-- Component End  -->
 
         <div class="main-content">
-
-
-
-
 
             <div class=" icons-wrapper">
                 <div class="icon-menu-container">
@@ -198,8 +194,8 @@
                         <div class="action-buttons">
 
 
-                            <button id="chooseProductButton" class="hidden">Choose Product</button>
-                            <button id="chooseTemplateButton" class="hidden">Choose Template</button>
+                            <button id="chooseProductButton" >Choose Product</button>
+                            <button id="chooseTemplateButton">Choose Template</button>
 
                         </div>
                         <div id="productAndTemplate" class="hidden">
@@ -212,11 +208,7 @@
 
         </div>
     </div>
-
     <script>
-
-
-
 
         $(document).ready(function () {
             function toggleMenu(button) {
@@ -423,7 +415,6 @@
         });
 
     </script>
-
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {

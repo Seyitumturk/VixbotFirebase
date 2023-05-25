@@ -15,9 +15,10 @@ const User = require('../models/Users');
 const Business = require('../models/businesses');
 const Product = require('../models/Products');
 const Template = require('../models/Template');
+const Conversation = require('../models/Conversations.js');
+
 
 const admin = require('firebase-admin');
-
 
 const { Configuration, OpenAIApi } = require('openai');
 
@@ -133,10 +134,12 @@ router.post('/register', withDbConnection, async (req, res) => {
             { upsert: true }
         );
 
-        res.send(`User created with UID: ${user.uid}`);
     } catch (error) {
         res.status(400).send(`Error: ${error.message}`);
     }
+
+    res.redirect('/onboarding');
+
 });
 
 
@@ -206,49 +209,29 @@ router.get('/products', isAuthenticated, async (req, res) => {
         res.status(500).json({ error: 'Failed to retrieve products' });
     }
 });
+
 router.post('/create-product', isAuthenticated, async (req, res) => {
+    const { product_name, main_features, unique_selling_points, pricing_model, distribution_channels } = req.body;
+    
     try {
-        const productData = req.body;
-
-        // Log the received product data
-        console.log('Received product data:', productData);
-
-        // Create a new product object with the request data
-        const product = new Product({
+        const newProduct = new Product({
             user_id: req.user._id,
-            product_name: productData.product_name,
-            main_features: productData.main_features,
-            unique_selling_points: productData.unique_selling_points,
-            pricing_model: productData.pricing_model,
-            distribution_channels: productData.distribution_channels,
+            product_name: product_name,
+            main_features: main_features,
+            unique_selling_points: unique_selling_points,
+            pricing_model: pricing_model,
+            distribution_channels: distribution_channels
         });
-
-        // Save the product to the database
-        const result = await product.save();
-        console.log('Product saved:', result);
-
-        // Render the product card template with the new product data
-        res.render('products', { product: result }, (err, html) => {
-            if (err) {
-                console.error('Failed to render product card template:', err);
-                res.status(500).json({ error: 'Failed to render product card template' });
-            } else {
-                // Send the product card HTML back to the client
-                res.send(html);
-            }
-        });
+        
+        await newProduct.save();
+        
+        res.json({ template: newProduct }); // The front-end code expects a JSON response with a "template" property
     } catch (err) {
-        console.error('Error occurred:', err);
-
-        // Handle validation errors
-        if (err.name === 'ValidationError') {
-            const errors = Object.values(err.errors).map(e => e.message);
-            res.status(400).json({ error: errors });
-        } else {
-            res.status(500).json({ error: 'Failed to create product' });
-        }
+        console.error(err);
+        res.status(500).json({ error: 'Failed to create product' });
     }
 });
+
 
 router.get('/get_businesses', isAuthenticated, async (req, res) => {
     const businesses = await Business.find({ user_id: req.user._id });
@@ -301,43 +284,39 @@ router.post('/conversations', isAuthenticated, async (req, res) => {
     const { messages, temperature, product } = req.body;
     const promptBody = `You are a helpful assistant. Your user's business is: ${chosenBusiness.name}, which operates in the ${chosenBusiness.industry} industry. They are focused on ${chosenBusiness.stands_for}, and their main competitors are ${chosenBusiness.main_competitors}. Their strengths are ${chosenBusiness.strengths}, and their weaknesses are ${chosenBusiness.weaknesses}. Their typical growth rate is ${chosenBusiness.typical_growth}, and their team size and structure are ${chosenBusiness.teamsize_and_structure}. Their company culture is described as ${chosenBusiness.company_culture}, and their main business goals are ${chosenBusiness.main_bussiness_goals} .Your user's selected product is: ${product.product_name}. Its main features are: ${product.main_features}. Its unique selling points are: ${product.unique_selling_points}. The pricing model is: ${product.pricing_model}. The distribution channels are: ${product.distribution_channels}.`;
 
-
     const configuration = new Configuration({
         organization: "org-JIjsH2CYD6sKM4gstuapQD1f",
-        apiKey: "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"
+        apiKey: "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"
     })
 
     const openai = new OpenAIApi(configuration);
 
-
     const completion = await openai.createChatCompletion({
         model: "gpt-4",
         messages: [
-
             { "role": "system", "content": promptBody }
             , ...messages
             // { role: "user", content: "Hello World" },
         ],
         temperature: temperature,
-    })
+    });
     console.log(messages);
     console.log(completion.data.choices[0].message);
     const botMessage = completion.data.choices[0].message.content;
-    res.json({ response: botMessage });
 
+    // Save the conversation
 
-
+    const conversation = new Conversation({
+        user: req.user._id,
+        context: promptBody,
+       
     
+    });
 
+    await conversation.save();
 
-
+    res.json({ response: botMessage });
 });
-
-
-
-
-
-
 
 // export router object
 module.exports = router;
