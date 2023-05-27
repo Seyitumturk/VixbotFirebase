@@ -70,10 +70,52 @@ router.get('/register', (req, res) => {
 });
 
 
+router.post('/register', withDbConnection, async (req, res) => {
+    const email = req.body.email;
+    const password = req.body.password;
+
+    try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        req.usersCollection.updateOne(
+            { uid: user.uid },
+            { $set: { email: user.email } },
+            { upsert: true }
+        );
+
+    } catch (error) {
+        res.status(400).send(`Error: ${error.message}`);
+    }
+
+    res.redirect('/onboarding');
+
+});
+
+
+router.post('/login', withDbConnection, async (req, res) => {
+    const email = req.body.email;
+    const password = req.body.password;
+
+    try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        const idToken = await user.getIdToken();
+
+        // Set the ID token as a cookie named 'token'
+        res.cookie('token', idToken, { httpOnly: true });
+        res.redirect('/conversations');
+    } catch (error) {
+        res.status(400).send(`Error: ${error.message}`);
+    }
+});
+
+
+// Onboarding Routes : 
+
 router.get('/onboarding', isAuthenticated, (req, res) => {
     res.render('onboarding');
 });
-
 
 router.post('/onboarding/create-business', isAuthenticated, async (req, res) => {
     const {
@@ -120,75 +162,37 @@ router.post('/onboarding/create-business', isAuthenticated, async (req, res) => 
 });
 
 
-router.post('/register', withDbConnection, async (req, res) => {
-    const email = req.body.email;
-    const password = req.body.password;
-
-    try {
-        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        const user = userCredential.user;
-
-        req.usersCollection.updateOne(
-            { uid: user.uid },
-            { $set: { email: user.email } },
-            { upsert: true }
-        );
-
-    } catch (error) {
-        res.status(400).send(`Error: ${error.message}`);
-    }
-
-    res.redirect('/onboarding');
-
-});
-
-
-router.post('/login', withDbConnection, async (req, res) => {
-    const email = req.body.email;
-    const password = req.body.password;
-
-    try {
-        const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        const user = userCredential.user;
-        const idToken = await user.getIdToken();
-
-        // Set the ID token as a cookie named 'token'
-        res.cookie('token', idToken, { httpOnly: true });
-        res.redirect('/conversations');
-    } catch (error) {
-        res.status(400).send(`Error: ${error.message}`);
-    }
-});
-
 
 //Template Routes
 
-router.get('/templates', isAuthenticated, (req, res) => {  // Render maps page if user is logged in
-    res.render('templates');
-});
 
-router.post('/templates', isAuthenticated, async (req, res) => {
+router.get('/templates', isAuthenticated, async (req, res) => {
     try {
-        const templateData = req.body;
-        const user_id = req.user._id; // Get user_id from the authenticated user
-
-        // Add user_id to the templateData object
-        templateData.user_id = user_id;
-
-        const template = new Template(templateData);
-        await template.save();
-        res.json({ message: 'Template created successfully', template });
-    } catch (error) {
-        console.error('Error while creating template:', error);
-        res.status(500).json({ message: 'Error while creating template' });
+        const templates = await Template.find({ user_id: req.user._id });
+        res.render('templates', { templates: templates });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Failed to retrieve templates' });
     }
 });
 
+router.post('/create-template', isAuthenticated, async (req, res) => {
+    const { template_name, template_details } = req.body;
 
+    try {
+        const newTemplate = new Template({
+            user_id: req.user._id,
+            template_name: template_name,
+            template_details: template_details,
+        });
 
-router.get('/get_templates', isAuthenticated, async (req, res) => {
-    const templates = await Template.find({ user_id: req.user._id });
-    res.json(templates);
+        await newTemplate.save();
+
+        res.json({ template: newTemplate });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Failed to create template' });
+    }
 });
 
 
@@ -212,7 +216,7 @@ router.get('/products', isAuthenticated, async (req, res) => {
 
 router.post('/create-product', isAuthenticated, async (req, res) => {
     const { product_name, main_features, unique_selling_points, pricing_model, distribution_channels } = req.body;
-    
+
     try {
         const newProduct = new Product({
             user_id: req.user._id,
@@ -222,9 +226,9 @@ router.post('/create-product', isAuthenticated, async (req, res) => {
             pricing_model: pricing_model,
             distribution_channels: distribution_channels
         });
-        
+
         await newProduct.save();
-        
+
         res.json({ template: newProduct }); // The front-end code expects a JSON response with a "template" property
     } catch (err) {
         console.error(err);
@@ -286,7 +290,7 @@ router.post('/conversations', isAuthenticated, async (req, res) => {
 
     const configuration = new Configuration({
         organization: "org-JIjsH2CYD6sKM4gstuapQD1f",
-        apiKey: "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"
+        apiKey: "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"
     })
 
     const openai = new OpenAIApi(configuration);
@@ -309,8 +313,8 @@ router.post('/conversations', isAuthenticated, async (req, res) => {
     const conversation = new Conversation({
         user: req.user._id,
         context: promptBody,
-       
-    
+
+
     });
 
     await conversation.save();

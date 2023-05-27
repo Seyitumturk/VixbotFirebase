@@ -1,32 +1,20 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const templateSchema = new mongoose.Schema({
-    user_id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Users'
-    },
-    template_name: {
-        type: String,
-        trim: true
-    },
-    template_context: {
-        type: String,
-        trim: true
-    },
-    template_functionality: {
-        type: String,
-        trim: true
-    },
-    created_at: {
-        type: Date,
-        default: Date.now
-    },
-    updated_at: {
-        type: Date,
-        default: Date.now
-    }
+const TemplateSchema = new Schema({
+  user_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+  },
+  template_name: {
+    type: String,
+    required: true,
+  },
+  template_details: {
+    type: String,
+    required: true,
+  },
 });
 
-const Template = mongoose.model('Templates', templateSchema);
-
-module.exports = Template;
+module.exports = mongoose.model('Template', TemplateSchema);
