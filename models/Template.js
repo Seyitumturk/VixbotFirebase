@@ -15,6 +15,20 @@ const TemplateSchema = new Schema({
     type: String,
     required: true,
   },
+  prompt: {
+    type: String,
+    required: true,
+  },
+
+  product_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Products',
+  },
+  business_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Business',
+  },
 });
+
 
 module.exports = mongoose.model('Template', TemplateSchema);

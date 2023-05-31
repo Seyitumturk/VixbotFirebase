@@ -1,197 +1,226 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Templates</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" href="templates.css">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
 
 </head>
 
 <body>
+    <div id="main-wrapper">
 
-    <div id="bigSidebar"
-        class="flex flex-col items-center w-64 min-w-64 h-full overflow-hidden text-black-400 bg-white-900 box ">
+        <div id="bigSidebar"
+            class="flex flex-col  w-64 min-w-64 h-full overflow-hidden text-black-400 bg-white-900 box ">
 
-        <div class="sidebar-logo bg-red">
-            <img class="logo-image mt-3" src="/img/brand/vb.svg" alt="logo" />
+            <div class="sidebar-logo bg-red">
+                <img class="logo-image mt-3" src="/img/brand/vb.svg" alt="logo" />
+                <h1 class="logo-text">Vixbot</h1>
+
+            </div>
+
+            <a class="flex items-center w-full h-12 px-3 mt-2 mt-20 hover:bg-gray-700 hover:text-gray-300"
+                href="/templates">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers">
+                    <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                    <polyline points="2 17 12 22 22 17"></polyline>
+                    <polyline points="2 12 12 17 22 12"></polyline>
+                </svg>
+                <span class="ml-2 text-sm font-medium">Templates</span>
+            </a>
+
+
+            <!-- Products link -->
+            <a class="flex items-center w-full h-12 px-3 mt-2  hover:bg-gray-700 hover:text-gray-300" href="/products">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box">
+                    <path
+                        d="M21 13V21C21 21.5304 20.7893 22.0391 20.4142 22.4142C20.0391 22.7893 19.5304 23 19 23H5C4.46957 23 3.96086 22.7893 3.58579 22.4142C3.21071 22.0391 3 21.5304 3 21V13">
+                    </path>
+                    <polyline points="3 12 12 7 21 12"></polyline>
+                    <path d="M12 22V7"></path>
+                    <path d="M2 6L22 6"></path>
+                </svg>
+                <span class="ml-2 text-sm font-medium">Products</span>
+            </a>
+            <!-- Templates link -->
+
+            <a class="flex items-center w-full h-12 px-3 mt-2  hover:bg-gray-700 hover:text-gray-300 "
+                href="/conversations">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-lightbulb">
+                    <path
+                        d="M13 17H11M6.38 18A7.95 7.95 0 0 0 12 20C15.866 20 19 16.866 19 13A7.95 7.95 0 0 0 19.74 11H4.67A7.95 7.95 0 0 0 5 13C5 15.7614 7.23858 18 10 18Z">
+                    </path>
+                    <line x1="12" y1="2" x2="12" y2="6"></line>
+                    <line x1="18" y1="12" x2="22" y2="12"></line>
+                    <line x1="6" y1="12" x2="2" y2="12"></line>
+                </svg>
+                <span class="ml-2 text-sm font-medium">Vix Chat</span>
+            </a>
+            <a class="flex items-center w-full h-12 px-3 mt-2  hover:bg-gray-700 hover:text-gray-300"
+                href="/conversations">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor"
+                    stroke-width="2">
+                    <path
+                        d="M17 21v-2c0-1.1-.4-2.1-1.2-2.9-.7-.8-1.7-1.2-2.8-1.2h-2c-1.1 0-2.1.4-2.9 1.2-.8.7-1.2 1.7-1.2 2.8v2">
+                    </path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path
+                        d="M23 21v-2c0-1.1-.4-2.1-1.2-2.9-.7-.8-1.7-1.2-2.8-1.2-1.1 0-2.1.4-2.9 1.2-.8.7-1.2 1.7-1.2 2.8v2">
+                    </path>
+                    <circle cx="19" cy="7" r="4"></circle>
+                </svg>
+                <span class="ml-2 text-sm font-medium">Collaborate</span>
+                <span class="ml-1 px-1 py-1 text-sm font-medium text-white bg-blue-600 ml-10 rounded">NEW</span>
+            </a>
+
         </div>
 
-        <a class="flex items-center w-full h-12 px-3 mt-2  mt-20 karita" href="/conversations">
+        <div id="mainContent">
 
-            <span class="ml-5 mt-5 text-xl font-medium ">Karita</span>
-        </a>
+            <h1 id="page-title">Templates</h1>
 
-
-        <a class="flex items-center w-full h-12 px-3 mt-2  hover:bg-gray-700 hover:text-gray-300 mt-20"
-            href="/conversations">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor"
-                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-lightbulb">
-                <path
-                    d="M13 17H11M6.38 18A7.95 7.95 0 0 0 12 20C15.866 20 19 16.866 19 13A7.95 7.95 0 0 0 19.74 11H4.67A7.95 7.95 0 0 0 5 13C5 15.7614 7.23858 18 10 18Z">
-                </path>
-                <line x1="12" y1="2" x2="12" y2="6"></line>
-                <line x1="18" y1="12" x2="22" y2="12"></line>
-                <line x1="6" y1="12" x2="2" y2="12"></line>
-            </svg>
-            <span class="ml-2 text-sm font-medium">Ideate</span>
-        </a>
-        <!-- ... -->
-        <!-- Products link -->
-        <a class="flex items-center w-full h-12 px-3 mt-2  hover:bg-gray-700 hover:text-gray-300" href="/products">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor"
-                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box">
-                <path
-                    d="M21 13V21C21 21.5304 20.7893 22.0391 20.4142 22.4142C20.0391 22.7893 19.5304 23 19 23H5C4.46957 23 3.96086 22.7893 3.58579 22.4142C3.21071 22.0391 3 21.5304 3 21V13">
-                </path>
-                <polyline points="3 12 12 7 21 12"></polyline>
-                <path d="M12 22V7"></path>
-                <path d="M2 6L22 6"></path>
-            </svg>
-            <span class="ml-2 text-sm font-medium">Products</span>
-        </a>
-        <!-- Templates link -->
-        <a class="flex items-center w-full h-12 px-3 mt-2  hover:bg-gray-700 hover:text-gray-300" href="/templates">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor"
-                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers">
-                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-                <polyline points="2 17 12 22 22 17"></polyline>
-                <polyline points="2 12 12 17 22 12"></polyline>
-            </svg>
-            <span class="ml-2 text-sm font-medium">Templates</span>
-        </a>
-        <a class="flex items-center w-full h-12 px-3 mt-2  hover:bg-gray-700 hover:text-gray-300" href="/conversations">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor"
-                stroke-width="2">
-                <path
-                    d="M17 21v-2c0-1.1-.4-2.1-1.2-2.9-.7-.8-1.7-1.2-2.8-1.2h-2c-1.1 0-2.1.4-2.9 1.2-.8.7-1.2 1.7-1.2 2.8v2">
-                </path>
-                <circle cx="9" cy="7" r="4"></circle>
-                <path
-                    d="M23 21v-2c0-1.1-.4-2.1-1.2-2.9-.7-.8-1.7-1.2-2.8-1.2-1.1 0-2.1.4-2.9 1.2-.8.7-1.2 1.7-1.2 2.8v2">
-                </path>
-                <circle cx="19" cy="7" r="4"></circle>
-            </svg>
-            <span class="ml-2 text-sm font-medium">Collaborate</span>
-            <span class="ml-1 px-1 py-1 text-sm font-medium text-white bg-blue-600 ml-10 rounded">NEW</span>
-        </a>
-
-    </div>
-
-
-
-    <div class="container">
-        <div class="row" id="templates-container">
-            <!-- Template cards will be appended here -->
-        </div>
-        <button id="add-template-btn" class="btn btn-primary">Add Template</button>
-    </div>
-
-    <!-- Modal for creating new template -->
-    <div class="modal" tabindex="-1" role="dialog" id="create-template-modal">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">New Template</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="cancel-btn">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group" id="template-name-group">
-                        <label for="template-name">Template Name</label>
-                        <input type="text" class="form-control" id="template-name">
-                    </div>
-                    <div class="form-group" id="template-details-group">
-                        <label for="template-details">Template Details</label>
-                        <input type="text" class="form-control" id="template-details">
-                    </div>
-
-                    <!-- Add other template input fields here as needed -->
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" id="cancel-btn">Cancel</button>
-                    <button type="button" class="btn btn-primary" id="next-btn">Next</button>
-                    <button type="button" class="btn btn-primary" id="submit-btn" style="display: none;">Submit</button>
+            <div class="header-container">
+                <div class="search-bar">
+                    <input type="text" placeholder="Search templates..." />
                 </div>
             </div>
-        </div>
-    </div>
-    <script>
-        $(document).ready(function () {
-            // Handle the "Add Template" button click event
-            $("#add-template-btn").on("click", function () {
-                $("#create-template-modal").show();
-            });
 
-            // Handle the "Cancel" button click event
-            $("#cancel-btn").on("click", function () {
-                $("#create-template-modal").hide();
-            });
+            <div class="categories-container">
+                <div class="category-tag">
+                    <span>Marketing </span>
+                </div>
+                <div class="category-tag">
+                    <span>Brainstorming</span>
+                </div>
+                <div class="category-tag">
+                    <span>Ad Creative </span>
+                </div>
+                <!-- Add more as needed -->
+            </div>
 
-            // Setup modal question flow
-            const questionGroups = [
-                "template-name-group",
-                "template-content-group",
-                // add other template input fields here as needed
-            ];
+            <!-- The rest of your code -->
 
-            let currentQuestionIndex = 0;
-            function showQuestion(index) {
-                questionGroups.forEach((group, i) => {
-                    $(`#${group}`).css("display", index === i ? "block" : "none");
-                });
-                $("#next-btn").css("display", index < questionGroups.length - 1 ? "inline-block" : "none");
-                $("#submit-btn").css("display", index === questionGroups.length - 1 ? "inline-block" : "none");
-            }
 
-            $("#next-btn").on("click", function () {
-                currentQuestionIndex++;
-                showQuestion(currentQuestionIndex);
-            });
+            <button id="openModalBtn">Create Template</button>
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <span id="closeModalBtn" class="close">&times;</span>
+                    <h1>Create Template</h1>
+                    <form id="create-template-form" action="/create-template" method="post">
+                        <label for="template_name">Template Name:</label><br>
+                        <input type="text" id="template_name" name="template_name"><br>
+                        <label for="template_details">Template Details:</label><br>
+                        <input type="text" id="template_details" name="template_details"><br>
+                        <label for="prompt">Prompt:</label><br>
+                        <input type="text" id="prompt" name="prompt"><br>
+                        <label for="category">Category:</label><br>
+                        <input type="text" id="category" name="category"><br>
+                        <label for="product_id">Product:</label><br>
+                        <select id="product_id" name="product_id">
+                            <% products.forEach((product)=> { %>
+                                <option value="<%= product._id %>">
+                                    <%= product.product_name %>
+                                </option>
+                                <% }); %>
+                        </select><br>
 
-            // When the modal is shown, display the first question
-            $("#create-template-modal").on("shown.bs.modal", function () {
-                currentQuestionIndex = 0;
-                showQuestion(currentQuestionIndex);
-            });
+                        <input type="submit" value="Create Template">
+                    </form>
+                </div>
+            </div>
 
-            // Handle the form submission
-            $("#submit-btn").on("click", async function (event) {
-                event.preventDefault();
+            <div id="template-list">
+                <div id="card-container">
 
-                const formData = {
-                    template_name: $("#template-name").val(),
-                    template_details: $("#template-details").val()
-                };
-
-                try {
-                    const response = await $.ajax({
-                        type: "POST",
-                        url: "/create-template",
-                        data: formData,
-                        dataType: "json",
-                    });
-
-                    // Create a new template card with the received data and append it to the templates container
-                    const templateCardHtml = `
-                    <div class="col-sm-6 col-lg-3 mb-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">${response.template.template_name}</h5>
-                                <p class="card-text">${response.template.template_content}</p>
-                            </div>
+                    <% templates.forEach((template)=> { %>
+                        <div class="template-card">
+                            <h2>
+                                <%= template.template_name %>
+                            </h2>
+                            <p>
+                                <%= template.template_details %>
+                            </p>
+                            <a href="/template/<%= template._id %>">View Template</a>
                         </div>
-                    </div>`;
-                    $("#templates-container").append(templateCardHtml);
+                        <% }); %>
+                </div>
+            </div>
 
-                } catch (error) {
-                    console.error("Server response:", error.responseText);
-                    alert("Failed to create a new template. Please try again.");
-                }
+        </div>
+
+    </div>
+
+    <script>
+        //Modal script
+        var modal = document.getElementById("myModal");
+        var btn = document.getElementById("openModalBtn");
+        var span = document.getElementById("closeModalBtn");
+
+        // When the user clicks the button, open the modal 
+        btn.onclick = function () {
+            modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+
+    <script>
+        // Send form data to backend. 
+        const form = document.getElementById('create-template-form');
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const formData = new FormData(form);
+
+            const formBody = {};
+            formData.forEach((value, key) => {
+                formBody[key] = value;
             });
+
+            fetch('/create-template', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formBody),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Append the new template to your list of templates
+                    const templateList = document.getElementById('card-container'); // Changed from 'template-list'
+                    const newTemplate = document.createElement('div');
+                    newTemplate.classList.add('template-card');
+                    newTemplate.innerHTML = `
+                <h2>${data.template.template_name}</h2>
+                <p>${data.template.template_details}</p>
+                <a href="/template/${data.template._id}">View Template</a>
+            `;
+                    templateList.appendChild(newTemplate);
+
+                    // Close the modal and clear the form
+                    modal.style.display = "none";
+                    form.reset();
+                })
+                .catch(error => console.error(error));
         });
+
     </script>
 </body>
 

@@ -1,0 +1,220 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+}
+
+
+
+.header img {
+  height: 30px;
+  width: auto;
+}
+
+
+
+.template-details {
+  display: flex;
+  flex-direction: row;
+}
+
+.sidebar {
+  width: 25%;
+  height: 100vh;
+  padding: 20px;
+  background-color: white;
+  border-right: 1px solid #ddd;
+  position: fixed;
+  overflow: auto;
+}
+
+.sidebar input,
+.sidebar textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+#generate {
+  background: linear-gradient(90deg, purple, turquoise);
+  color: white;
+  border: none;
+  padding: 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: auto;
+  transition: background 0.3s ease;
+}
+
+#generate:hover {
+  background: linear-gradient(90deg, turquoise, purple);
+}
+
+.content {
+  width: 75%;
+  margin-left: 25%;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+#bigSidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 20%;
+  height: 100%;
+  background: white;
+  border-right: 1px solid lightgray;
+  backdrop-filter: blur(5px);
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-out;
+  z-index: 10000;
+}
+
+
+.sidebar-logo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background: linear-gradient(90deg, rgba(214, 164, 164, 0.4), rgba(153, 242, 200, 0.4));
+}
+
+#closeSidebar {
+
+  top: 15px;
+  /* Distance from the top */
+  left: 15px;
+  /* Distance from the left */
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #888;
+  /* Change color to make it less bold */
+  cursor: pointer;
+  padding: 5px;
+  /* Added padding for better clickability */
+  transition: color 0.3s ease;
+  /* Transition for hover effect */
+}
+
+#closeSidebar:hover {
+  color: #000;
+  /* Darker color on hover */
+}
+
+.bg-gr-500 {
+  position: relative;
+  background: linear-gradient(90deg, rgba(214, 164, 164, 0.4), rgba(153, 242, 200, 0.4));
+}
+
+#expand {
+  padding: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: normal;
+  /* New line to make the button not bold */
+  transform: scale(0.8);
+  /* New line to make the button smaller */
+}
+
+.bar {
+  width: 28px;
+  /* Decreased from 35px to 28px */
+  height: 4px;
+  /* Decreased from 5px to 4px */
+  background-color: black;
+  margin: 6px 0;
+  transition: 0.4s;
+}
+
+.bar.short {
+  width: 16px;
+  /* Decreased from 20px to 16px */
+}
+
+.header {
+  padding: 6px 12px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  /* New line to align items vertically */
+  background-color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 1.5em;
+  font-weight: normal;
+  padding: 0 10px;
+}
+
+#template-logo {
+  margin-left: 50px;
+  height: 30px;
+  /* Adjust according to your logo size */
+  width: auto;
+}
+
+.idea-card {
+  width: 70%;
+  /* you can adjust this value */
+  margin: auto;
+  margin-top: 15px;
+  padding: 10px;
+  /* adjust padding */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* other existing styles */
+}
+
+#language {
+  font-size: 1.2em;
+  /* adjust this value as per your preference */
+  padding: 10px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+label {
+  margin-top: 10px;
+  margin-bottom: 5px;
+  display: block;
+  font-size: 1em;
+  /* adjust this value as per your preference */
+}
+
+
+
+input,
+select {
+  padding: 30px;
+  margin: 15px 50%;
+  /* Adjust the left and right margin */
+  width: 80%;
+  /* Adjust the width */
+}
+
+#generate {
+  position: absolute;
+  /* Position the button absolutely */
+  bottom: 20px;
+  /* Adjust the bottom position */
+  width: 100%;
+}

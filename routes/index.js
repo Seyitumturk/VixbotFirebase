@@ -12,7 +12,7 @@ const { auth, adminAuth, signInWithEmailAndPassword, createUserWithEmailAndPassw
 
 //Models 
 const User = require('../models/Users');
-const Business = require('../models/businesses');
+const Business = require('../models/Businesses');
 const Product = require('../models/Products');
 const Template = require('../models/Template');
 const Conversation = require('../models/Conversations.js');
@@ -28,7 +28,7 @@ const { Configuration, OpenAIApi } = require('openai');
 
 async function isAuthenticated(req, res, next) {
     const idToken = req.cookies.token;
-    console.log('ID Token:', idToken); // Add this line
+    console.log('ID Token:', idToken);
 
     if (idToken) {
         try {
@@ -104,7 +104,7 @@ router.post('/login', withDbConnection, async (req, res) => {
 
         // Set the ID token as a cookie named 'token'
         res.cookie('token', idToken, { httpOnly: true });
-        res.redirect('/conversations');
+        res.redirect('/templates');
     } catch (error) {
         res.status(400).send(`Error: ${error.message}`);
     }
@@ -169,7 +169,8 @@ router.post('/onboarding/create-business', isAuthenticated, async (req, res) => 
 router.get('/templates', isAuthenticated, async (req, res) => {
     try {
         const templates = await Template.find({ user_id: req.user._id });
-        res.render('templates', { templates: templates });
+        const products = await Product.find({ user_id: req.user._id }); // Assuming your Product model has a user_id field
+        res.render('templates', { templates: templates, products: products });
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Failed to retrieve templates' });
@@ -177,13 +178,20 @@ router.get('/templates', isAuthenticated, async (req, res) => {
 });
 
 router.post('/create-template', isAuthenticated, async (req, res) => {
-    const { template_name, template_details } = req.body;
+    const { template_name, template_details, prompt, product_id } = req.body;
+
+    const user = await User.findById(req.user._id);
+
+    const chosenBusiness = await Business.findOne({ user_id: user._id });
 
     try {
         const newTemplate = new Template({
             user_id: req.user._id,
             template_name: template_name,
             template_details: template_details,
+            prompt: prompt,
+            product_id: product_id,
+            business_id: chosenBusiness
         });
 
         await newTemplate.save();
@@ -195,6 +203,19 @@ router.post('/create-template', isAuthenticated, async (req, res) => {
     }
 });
 
+
+router.get('/template/:id', isAuthenticated, async (req, res) => {
+    try {
+        const template = await Template.findOne({ _id: req.params.id, user_id: req.user._id });
+        if (!template) {
+            return res.status(404).send('Template not found');
+        }
+        res.render('generate', { template: template });  // This assumes you have a 'template.ejs' file to render individual templates
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Failed to retrieve template' });
+    }
+});
 
 
 // Product Routes
@@ -278,7 +299,7 @@ router.get('/conversations', isAuthenticated, async (req, res) => {
 });
 
 
-// MAIN BABY
+// MAIN` BABY
 
 router.post('/conversations', isAuthenticated, async (req, res) => {
     console.log(req.body);
@@ -290,7 +311,7 @@ router.post('/conversations', isAuthenticated, async (req, res) => {
 
     const configuration = new Configuration({
         organization: "org-JIjsH2CYD6sKM4gstuapQD1f",
-        apiKey: "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"
+        apiKey: "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"
     })
 
     const openai = new OpenAIApi(configuration);
@@ -321,6 +342,39 @@ router.post('/conversations', isAuthenticated, async (req, res) => {
 
     res.json({ response: botMessage });
 });
+
+
+router.post('/generate-content', isAuthenticated, async (req, res) => {
+    const { title, name, prompt, num_variations } = req.body;
+
+    const configuration = new Configuration({
+        organization: "org-JIjsH2CYD6sKM4gstuapQD1f",
+        apiKey: "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"
+    });
+
+    const openai = new OpenAIApi(configuration);
+
+    const promises = [];
+
+    for (let i = 0; i < num_variations; i++) {
+        promises.push(openai.createChatCompletion({
+            model: "gpt-4",
+            messages: [
+                { "role": "system", "content": prompt },
+                { "role": "user", "content": title },
+                { "role": "assistant", "content": name },
+            ],
+            temperature: 0.5,
+        }));
+    }
+
+    const results = await Promise.all(promises);
+
+    const generatedContent = results.map(result => result.data.choices[0].message.content);
+
+    res.json({ generatedContent });
+});
+
 
 // export router object
 module.exports = router;

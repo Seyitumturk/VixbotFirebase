@@ -55,14 +55,6 @@ const businessSchema = new mongoose.Schema({
     trim: true
   },
 
-  gpt_business_summary: {
-    type: String,
-    trim: true
-  },
-
-
-
-
   created_at: {
     type: Date,
     default: Date.now

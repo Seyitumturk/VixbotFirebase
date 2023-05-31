@@ -1,64 +1,164 @@
-html,
-body,
-.custom-body {
-    height: 100%;
-    min-height: 100vh;
-    /* Add this line */
+#main-wrapper {
+    display: flex;
 }
 
-.wrapper {
-    display: flex;
-    width: 100%;
-    height: 100%;
-}
-
-/* ... rest of the CSS ... */
-
-.main-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    min-height: 100vh;
+#mainContent {
+    padding-left: 20px;
+    padding-right: 20px;
+    flex-grow: 1;
 }
 
 #bigSidebar {
-    position: relative;
+    height: 100vh;
+    border-right: 1px solid lightgrey;
+}
+
+#page-title {
+    padding: 10px;
+    font-size: 30px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
     z-index: 1;
-    border-right: 1px solid lightgray;
-}
-
-.neumorphic {
-    background-color: #F2F2F2;
-    /* Substitute for bg-gray-100 */
-    border-radius: 0.375rem;
-    /* Substitute for rounded-lg */
-    padding: 1.5rem;
-    /* Substitute for p-6 */
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    /* Substitute for shadow-md */
-}
-
-.neumorphic::after {
-    content: "";
-    margin-top: -1rem;
-    /* Substitute for -mt-3 */
-    margin-left: -1rem;
-    /* Substitute for -ml-3 */
-    position: absolute;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
     width: 100%;
     height: 100%;
-    background: #fff;
-    /* Substitute for bg-white */
-    border-radius: 0.375rem;
-    /* Substitute for rounded-lg */
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-    /* Substitute for shadow-lg */
-    transform: translate(0.75rem, 0.75rem);
-    /* Substitute for translate-x-3 translate-y-3 */
-    z-index: -1;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
-#bigSidebar {
-    height: 100%;
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.templates-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+
+
+.template-card img {
+    width: 50px;
+    height: 50px;
+}
+
+.template-card h2,
+.template-card p {
+    margin: 0;
+}
+
+.template-category {
+    display: flex;
+    overflow-x: auto;
+}
+
+#card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+}
+
+.template-card {
+    flex: 0 0 auto;
+    width: calc((100% - 60px) / 4);
+    height: 200px;
+    min-width: 200px;
+    border-radius: 20px;
+    padding: 20px;
+    margin: 10px;
+    border: 1px solid lightgrey;
+    transition: 0.3s;
+    background-color: white;
+}
+
+
+.template-card:hover {
+    background-color: #d3ace7;
+    border: 2px solid #a365c2;
+    border-bottom: 5px solid #a365c2;
+
+}
+
+
+.header-container {
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.search-bar input[type="text"] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border-radius: 20px;
+    border: 2px solid #ccc;
+}
+
+.categories-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.category-tag {
+    background-color: #e3d6f7;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 0.8em;
+}
+
+.logo-image {
+    height: 50px;
+    /* Adjust as necessary */
+    width: auto;
+    /* Keeps the aspect ratio of the image */
+}
+
+
+.sidebar-logo {
+    display: flex;
+    justify-content: flex-start;
+    /* Align children to the left */
+    align-items: baseline;
+    /* Align children to the same baseline */
+    padding: 10px;
+}
+
+.logo-text {
+    font-size: 24px;
+    /* Adjust as necessary */
+    font-family: Arial, sans-serif;
+    /* Choose a modern font */
+    background: linear-gradient(45deg, purple, turquoise);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-left: 10px;
+    /* Add some space between the logo and the text */
 }

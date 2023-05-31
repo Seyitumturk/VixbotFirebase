@@ -28,11 +28,6 @@ const productsSchema = new mongoose.Schema({
         trim: true
     },
 
-    gpt_product_summary: {
-        type: String,
-    },
-
-
     created_at: {
         type: Date,
         default: Date.now
