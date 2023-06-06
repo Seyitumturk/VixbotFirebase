@@ -28,6 +28,11 @@ const userSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Conversations'
     }],
+
+    progress: { 
+        type: Number, 
+        default: 0 
+    },    
     created_at: {
         type: Date,
         default: Date.now

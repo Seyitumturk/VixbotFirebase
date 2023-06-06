@@ -151,15 +151,31 @@ router.post('/onboarding/create-business', isAuthenticated, async (req, res) => 
         gpt_business_summary
     });
 
+    let progressCount = 0;
+
+    // increment progress count for each completed field
+    for(let key in req.body) {
+        if(req.body[key] !== '') progressCount++;
+    }
+
+    // check if all fields are filled in
+    let onboardingCompleted = progressCount === Object.keys(req.body).length;
+
     try {
         await newBusiness.save();
-        await User.findByIdAndUpdate(req.user.id, { $set: { onboarding_completed: true } });
+        await User.findByIdAndUpdate(req.user.id, { 
+            $set: { 
+                progress: progressCount, 
+                onboarding_completed: onboardingCompleted 
+            } 
+        });
         res.redirect('/conversations');
     } catch (err) {
         console.error(err);
         res.render('pages/conversations', { error: 'Failed to create the business. Please try again.' });
     }
 });
+
 
 
 
@@ -170,12 +186,28 @@ router.get('/templates', isAuthenticated, async (req, res) => {
     try {
         const templates = await Template.find({ user_id: req.user._id });
         const products = await Product.find({ user_id: req.user._id }); // Assuming your Product model has a user_id field
-        res.render('templates', { templates: templates, products: products });
-    } catch (err) {
+
+        const staticTemplates = [
+            {name: 'Product Description', link: '/productDescription'},
+            {name: 'Email Campaign', link: '/emailCampaignIdeas'},
+            {name: 'Social Media Plan', link: '/socialMediaPlan'}
+            // add the other static templates here
+        ];
+
+        let userProgress = req.user.progress; // Retrieve the progress
+        let totalQuestions = 12; // Set this to the total number of fields for your business object
+        let progressPercentage = (userProgress / totalQuestions) * 100;
+        
+
+        res.render('templates', { staticTemplates, templates: templates, products: products, progressPercentage: progressPercentage, totalQuestions: totalQuestions, progressCount: userProgress });
+    } 
+    
+    catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Failed to retrieve templates' });
     }
 });
+
 
 router.post('/create-template', isAuthenticated, async (req, res) => {
     const { template_name, template_details, prompt, product_id } = req.body;
@@ -311,7 +343,7 @@ router.post('/conversations', isAuthenticated, async (req, res) => {
 
     const configuration = new Configuration({
         organization: "org-JIjsH2CYD6sKM4gstuapQD1f",
-        apiKey: "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"
+        apiKey: "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"
     })
 
     const openai = new OpenAIApi(configuration);
@@ -344,12 +376,16 @@ router.post('/conversations', isAuthenticated, async (req, res) => {
 });
 
 
+// Generic template - Created by the users. 
+
+
+
 router.post('/generate-content', isAuthenticated, async (req, res) => {
     const { title, name, prompt, num_variations } = req.body;
 
     const configuration = new Configuration({
         organization: "org-JIjsH2CYD6sKM4gstuapQD1f",
-        apiKey: "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"
+        apiKey: "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"
     });
 
     const openai = new OpenAIApi(configuration);
@@ -374,6 +410,113 @@ router.post('/generate-content', isAuthenticated, async (req, res) => {
 
     res.json({ generatedContent });
 });
+
+
+// Static Templates 
+
+router.get('/productDescription', (req, res) => {
+    res.render('templated/productDescription');
+});
+
+
+
+router.post('/productDescription', isAuthenticated, async (req, res) => {
+    const { productName, productFeatures, productBenefits, num_variations } = req.body;
+
+    const configuration = new Configuration({
+        organization: "org-JIjsH2CYD6sKM4gstuapQD1f",
+        apiKey: "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"
+    });
+
+    const openai = new OpenAIApi(configuration);
+    const promises = [];
+    const prompt = `Generate a description for the product ${productName}, which has these features: ${productFeatures} and these benefits: ${productBenefits}`;
+
+    for (let i = 0; i < num_variations; i++) {
+        promises.push(openai.createChatCompletion({
+            model: "gpt-4",
+            messages: [
+                { "role": "system", "content": prompt },
+            ],
+            temperature: 0.5,
+        }));
+    }
+
+    const results = await Promise.all(promises);
+    const generatedContent = results.map(result => result.data.choices[0].message.content);
+
+    res.json({ generatedContent });
+});
+
+
+
+router.get('/socialMediaPlan', isAuthenticated, (req, res) => {
+    res.render('templated/socialMediaPlan', { title: 'Social Media Plan' });
+});
+
+
+router.post('/socialMediaPlan', isAuthenticated, async (req, res) => {
+    const { businessName, businessIndustry, num_variations } = req.body;
+
+    const configuration = new Configuration({
+        organization: "org-JIjsH2CYD6sKM4gstuapQD1f",
+        apiKey: "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"
+    });
+
+    const openai = new OpenAIApi(configuration);
+    const promises = [];
+    const prompt = `Create a social media plan for a ${businessIndustry} business named ${businessName}`;
+
+    for (let i = 0; i < num_variations; i++) {
+        promises.push(openai.createChatCompletion({
+            model: "gpt-4",
+            messages: [
+                { "role": "system", "content": prompt },
+            ],
+            temperature: 0.5,
+        }));
+    }
+
+    const results = await Promise.all(promises);
+    const generatedContent = results.map(result => result.data.choices[0].message.content);
+
+    res.json({ generatedContent });
+});
+
+router.get('/emailCampaignIdeas', isAuthenticated, (req, res) => {
+    res.render('templated/emailCampaignIdeas', { title: 'Email Campaign Ideas' });
+});
+
+
+
+router.post('/emailCampaignIdeas', isAuthenticated, async (req, res) => {
+    const { businessName, targetAudience, num_variations } = req.body;
+
+    const configuration = new Configuration({
+        organization: "org-JIjsH2CYD6sKM4gstuapQD1f",
+        apiKey: "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"
+    });
+
+    const openai = new OpenAIApi(configuration);
+    const promises = [];
+    const prompt = `Provide email campaign ideas for a business named ${businessName} targeting the following audience: ${targetAudience}`;
+
+    for (let i = 0; i < num_variations; i++) {
+        promises.push(openai.createChatCompletion({
+            model: "gpt-4",
+            messages: [
+                { "role": "system", "content": prompt },
+            ],
+            temperature: 0.5,
+        }));
+    }
+
+    const results = await Promise.all(promises);
+    const generatedContent = results.map(result => result.data.choices[0].message.content);
+
+    res.json({ generatedContent });
+});
+
 
 
 // export router object

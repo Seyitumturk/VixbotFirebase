@@ -27,27 +27,7 @@ body {
   overflow: auto;
 }
 
-.sidebar input,
-.sidebar textarea {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  box-sizing: border-box;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-}
 
-#generate {
-  background: linear-gradient(90deg, purple, turquoise);
-  color: white;
-  border: none;
-  padding: 15px;
-  border-radius: 8px;
-  cursor: pointer;
-  width: 100%;
-  margin-top: auto;
-  transition: background 0.3s ease;
-}
 
 #generate:hover {
   background: linear-gradient(90deg, turquoise, purple);
@@ -175,13 +155,6 @@ body {
   border-radius: 8px;
 }
 
-.sidebar {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  /* other existing styles */
-}
-
 #language {
   font-size: 1.2em;
   /* adjust this value as per your preference */
@@ -202,19 +175,26 @@ label {
 
 
 
-input,
-select {
-  padding: 30px;
-  margin: 15px 50%;
-  /* Adjust the left and right margin */
-  width: 80%;
-  /* Adjust the width */
+#generate {
+  background: linear-gradient(90deg, purple, turquoise);
+  color: white;
+  border: none;
+  padding: 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: auto;
+  transition: background 0.3s ease;
 }
 
-#generate {
-  position: absolute;
-  /* Position the button absolutely */
-  bottom: 20px;
-  /* Adjust the bottom position */
+
+.sidebar input,
+.sidebar textarea,
+.sidebar select {
   width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  border-radius: 8px;
 }

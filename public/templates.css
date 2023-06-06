@@ -162,3 +162,45 @@
     margin-left: 10px;
     /* Add some space between the logo and the text */
 }
+.static-templates {
+    display: flex;
+    flex-wrap: wrap;
+    border-bottom: 1px solid gray;
+}
+
+.template-card {
+    width: 25%; /* This sets each card to take up 1/4 of the total width. Adjust as necessary. */
+    padding: 10px; /* This adds some space around each card. Adjust as necessary. */
+}
+
+#template-list {
+    position: -webkit-sticky; /* For Safari */
+    position: sticky;
+    top: 0; /* This specifies that the sidebar should "stick" 0px from the top of the viewport. */
+}
+
+.progress {
+    height: 10px;
+    border-radius: 50px;
+    overflow: hidden;
+    background: lightgrey;
+  }
+  .progress-bar {
+    height: 100%;
+    background: linear-gradient(270deg, turquoise, purple, turquoise);
+    background-size: 200% 200%;
+    animation: gradient 6s ease-in-out infinite;
+    border-radius: 50px;
+  }
+
+  @keyframes gradient {
+    0% {
+      background-position: 100% 0%;
+    }
+    50% {
+      background-position: 0% 100%;
+    }
+    100% {
+      background-position: 100% 0%;
+    }
+  }

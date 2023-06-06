@@ -86,6 +86,13 @@
 
             <h1 id="page-title">Templates</h1>
 
+
+            <div class="progress">
+                <div class="progress-bar" style="width:<%= progressPercentage %>%;background-color: <%= progressPercentage < 50 ? 'red' : 'green' %>;"></div>
+              </div>
+              <p class="p-3 text-gray-500">Complete your business onboarding. You have <%= totalQuestions - progressCount %> questions left.</p>
+
+              
             <div class="header-container">
                 <div class="search-bar">
                     <input type="text" placeholder="Search templates..." />
@@ -136,7 +143,21 @@
                 </div>
             </div>
 
-            <div id="template-list">
+            <div class="static-templates pb-12">
+                <% staticTemplates.forEach(function(template) { %>
+                    <div class="template-card">
+                        <a href="<%= template.link %>">
+                            <h3><%= template.name %></h3>
+                        </a>
+                        <!-- You can add more information about the template if you have -->
+                    </div>
+                <% }); %>
+            </div>
+            
+
+
+            <div id="template-list" class="pt-9">
+                <h1 class="text-3xl"> My Templates</h1>
                 <div id="card-container">
 
                     <% templates.forEach((template)=> { %>
