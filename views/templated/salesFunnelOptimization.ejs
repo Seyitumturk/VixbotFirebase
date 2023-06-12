@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/generate.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <header class="header">
+        <button id="expand">
+            <div class="bar long"></div>
+            <div class="bar short"></div>
+            <div class="bar long"></div>
+        </button>
+        <img id="template-logo" src="/img/brand/fb-logo.svg" alt="Facebook Logo" />
+        <h1>
+            Sales Funnel Optimization
+        </h1>
+
+    </header>
+
+
+    <div id="bigSidebar"
+            class="flex flex-col  w-64 min-w-64 h-full overflow-hidden text-black-400 bg-white-900 box ">
+
+            <div class="sidebar-logo bg-red">
+                <img class="logo-image mt-3" src="/img/brand/vb.svg" alt="logo" />
+                <h1 class="logo-text">Vixbot</h1>
+
+            </div>
+
+            <a class="flex items-center w-full h-12 px-3 mt-2 mt-20 hover:bg-gray-700 hover:text-gray-300"
+                href="/templates">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers">
+                    <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                    <polyline points="2 17 12 22 22 17"></polyline>
+                    <polyline points="2 12 12 17 22 12"></polyline>
+                </svg>
+                <span class="ml-2 text-sm font-medium">Templates</span>
+            </a>
+
+
+            <!-- Products link -->
+            <a class="flex items-center w-full h-12 px-3 mt-2  hover:bg-gray-700 hover:text-gray-300" href="/products">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box">
+                    <path
+                        d="M21 13V21C21 21.5304 20.7893 22.0391 20.4142 22.4142C20.0391 22.7893 19.5304 23 19 23H5C4.46957 23 3.96086 22.7893 3.58579 22.4142C3.21071 22.0391 3 21.5304 3 21V13">
+                    </path>
+                    <polyline points="3 12 12 7 21 12"></polyline>
+                    <path d="M12 22V7"></path>
+                    <path d="M2 6L22 6"></path>
+                </svg>
+                <span class="ml-2 text-sm font-medium">Products</span>
+            </a>
+            <!-- Templates link -->
+
+            <a class="flex items-center w-full h-12 px-3 mt-2  hover:bg-gray-700 hover:text-gray-300 "
+                href="/conversations">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-lightbulb">
+                    <path
+                        d="M13 17H11M6.38 18A7.95 7.95 0 0 0 12 20C15.866 20 19 16.866 19 13A7.95 7.95 0 0 0 19.74 11H4.67A7.95 7.95 0 0 0 5 13C5 15.7614 7.23858 18 10 18Z">
+                    </path>
+                    <line x1="12" y1="2" x2="12" y2="6"></line>
+                    <line x1="18" y1="12" x2="22" y2="12"></line>
+                    <line x1="6" y1="12" x2="2" y2="12"></line>
+                </svg>
+                <span class="ml-2 text-sm font-medium">Vix Chat</span>
+            </a>
+            <a class="flex items-center w-full h-12 px-3 mt-2  hover:bg-gray-700 hover:text-gray-300"
+                href="/conversations">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor"
+                    stroke-width="2">
+                    <path
+                        d="M17 21v-2c0-1.1-.4-2.1-1.2-2.9-.7-.8-1.7-1.2-2.8-1.2h-2c-1.1 0-2.1.4-2.9 1.2-.8.7-1.2 1.7-1.2 2.8v2">
+                    </path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path
+                        d="M23 21v-2c0-1.1-.4-2.1-1.2-2.9-.7-.8-1.7-1.2-2.8-1.2-1.1 0-2.1.4-2.9 1.2-.8.7-1.2 1.7-1.2 2.8v2">
+                    </path>
+                    <circle cx="19" cy="7" r="4"></circle>
+                </svg>
+                <span class="ml-2 text-sm font-medium">Collaborate</span>
+                <span class="ml-1 px-1 py-1 text-sm font-medium text-white bg-blue-600 ml-10 rounded">NEW</span>
+            </a>
+
+        </div>
+        <div class="template-details">
+            <div class="sidebar">
+                <label for="businessName">Business Name:</label>
+                <input type="text" id="businessName" maxlength="100" />
+                
+                <label for="currentConversionRate">Current Conversion Rate (%):</label>
+                <input type="number" id="currentConversionRate" step="0.01" min="0" max="100" />
+    
+                <label for="targetConversionRate">Target Conversion Rate (%):</label>
+                <input type="number" id="targetConversionRate" step="0.01" min="0" max="100" />
+    
+                <label for="businessType">Business Type:</label>
+                <input type="text" id="businessType" maxlength="100" />
+    
+                <label for="primaryTargetAudience">Primary Target Audience:</label>
+                <input type="text" id="primaryTargetAudience" maxlength="100" />
+    
+                <button id="generate">Generate</button>
+            </div>
+    
+            <div class="content" id="content">
+                <!-- Content generated by GPT will be displayed here -->
+            </div>    
+        </div>
+    
+        <script>
+            document.getElementById('generate').addEventListener('click', async () => {
+                const businessName = document.getElementById('businessName').value;
+                const currentConversionRate = document.getElementById('currentConversionRate').value;
+                const targetConversionRate = document.getElementById('targetConversionRate').value;
+                const businessType = document.getElementById('businessType').value;
+                const primaryTargetAudience = document.getElementById('primaryTargetAudience').value;
+        
+                const response = await fetch('/salesFunnelOptimization', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        businessName: businessName,
+                        currentConversionRate: currentConversionRate,
+                        targetConversionRate: targetConversionRate,
+                        businessType: businessType,
+                        primaryTargetAudience: primaryTargetAudience
+                    }),
+                });
+        
+                if (response.ok) {
+                    const data = await response.json();
+                    const contentArea = document.getElementById('content');
+                    contentArea.innerHTML = '';
+                    
+                    const newContentDiv = document.createElement('div');
+                    newContentDiv.className = 'sales-funnel-card';
+                    newContentDiv.innerHTML = `<h2>Strategy 1</h2>${data.generatedContent}`;
+                    contentArea.appendChild(newContentDiv);
+                } else {
+                    // Handle error
+                    console.error('Failed to fetch content');
+                }
+            });
+        </script>
+        
+    
+<script>
+    //Expand Collapse main sidebar 
+    const expandButton = document.getElementById('expand');
+    const bigSidebar = document.getElementById('bigSidebar');
+
+    let isHovered = false; // This will track if the mouse is over the sidebar
+
+    expandButton.addEventListener('click', function (e) {
+        e.stopPropagation();
+        if (bigSidebar.style.transform === 'translateX(-100%)' || bigSidebar.style.transform === '') {
+            bigSidebar.style.transform = 'translateX(0)';
+        } else {
+            bigSidebar.style.transform = 'translateX(-100%)';
+        }
+    });
+
+    const closeButton = document.getElementById('closeSidebar');
+
+    closeButton.addEventListener('click', function (e) {
+        e.stopPropagation();
+        bigSidebar.style.transform = 'translateX(-100%)';
+    });
+
+    document.body.addEventListener('click', function () {
+        if (!isHovered && bigSidebar.style.transform === 'translateX(0)') {
+            bigSidebar.style.transform = 'translateX(-100%)';
+        }
+    });
+
+    bigSidebar.addEventListener('mouseover', function () {
+        isHovered = true;
+    });
+
+    bigSidebar.addEventListener('mouseout', function () {
+        isHovered = false;
+    });
+
+</script>
+
+</body>
+
+</html>

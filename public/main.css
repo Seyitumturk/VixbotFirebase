@@ -316,18 +316,7 @@ body {
     margin-right: 5px;
 }
 
-#bigSidebar {
-    position: relative;
-    z-index: 1;
-    border-right: 1px solid lightgray;
-}
 
-#bigSidebar img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 2;
-}
 
 .selected {
     /* Specify styles for selected items */
@@ -361,13 +350,7 @@ body {
     border-radius: 10px;
 }
 
-.sidebar-logo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-decoration: none;
-    background-color: #000000;
-}
+
 
 .logo-image {
     width: 100px;
@@ -376,6 +359,34 @@ body {
     /* Adjust as necessary */
     margin-left: 50px;
 }
+
+#bigSidebar {
+    position: relative;
+    z-index: 1;
+    border-right: 1px solid lightgray;
+}
+
+#bigSidebar img {
+    top: 0;
+    left: 0;
+    z-index: 2;
+}
+
+.sidebar-logo {
+    display: flex;
+    justify-content: flex-start;
+    /* Align children to the left */
+    align-items: baseline;
+    /* Align children to the same baseline */
+    padding: 10px;
+}
+
+
+.sidebar-logo h1 {
+    font-size: 24px;
+    color: #fff !important;
+}
+
 
 .sidebar-text {
     text-align: center;
@@ -490,4 +501,12 @@ main {
 #conversationForm select {
     padding: 5px;
     width: 200px;
+}
+
+a .text-sm.font-medium.text-white.bg-blue-600.ml-10.rounded {
+    color: white !important;
+    background-color: turquoise !important;
+    border-radius: 15px !important;
+    padding: 2px 6px !important;  /* Adjust padding as per your requirement */
+    font-size: 10px !important;   /* Adjust font size as per your requirement */
 }

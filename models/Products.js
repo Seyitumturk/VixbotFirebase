@@ -27,6 +27,10 @@ const productsSchema = new mongoose.Schema({
         type: String,
         trim: true
     },
+    summary: { 
+        type: String,
+        trim: true
+    },
 
     created_at: {
         type: Date,

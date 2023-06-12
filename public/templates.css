@@ -1,17 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+
+
+body {
+    font-family: 'Poppins', sans-serif !important;
+    overflow-x: hidden; /* Hide horizontal scroll */
+    overflow-y: hidden; /* Hide vertical scroll */
+    font-family: roboto;
+}
+
+.template-description{
+    padding: 10px;
+}
+
+
 #main-wrapper {
     display: flex;
 }
 
-#mainContent {
-    padding-left: 20px;
-    padding-right: 20px;
-    flex-grow: 1;
+#bigSidebar {
+    position: fixed;
+    height: 100vh;
+    width: 15%; /* 3/20 of the viewport width */
+    color: #fff; /* Text color to white */
 }
 
-#bigSidebar {
-    height: 100vh;
-    border-right: 1px solid lightgrey;
+#mainContent {
+    margin-left: 15%; /* 3/20 of the viewport width */
+    padding-left: 1rem; /* Add some left padding */
+    width: calc(85% - 1rem); /* Deduct padding from width */
+    overflow-y: auto; /* Enable vertical scrolling */
+    height: 100vh; /* Same as viewport height */
 }
+
+/* Make all svg (icons) color white */
+#bigSidebar svg {
+    stroke: #fff;
+}
+
+/* Make logo text color white */
+
 
 #page-title {
     padding: 10px;
@@ -53,55 +80,6 @@
     cursor: pointer;
 }
 
-.templates-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
-
-
-
-.template-card img {
-    width: 50px;
-    height: 50px;
-}
-
-.template-card h2,
-.template-card p {
-    margin: 0;
-}
-
-.template-category {
-    display: flex;
-    overflow-x: auto;
-}
-
-#card-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 10px;
-}
-
-.template-card {
-    flex: 0 0 auto;
-    width: calc((100% - 60px) / 4);
-    height: 200px;
-    min-width: 200px;
-    border-radius: 20px;
-    padding: 20px;
-    margin: 10px;
-    border: 1px solid lightgrey;
-    transition: 0.3s;
-    background-color: white;
-}
-
-
-.template-card:hover {
-    background-color: #d3ace7;
-    border: 2px solid #a365c2;
-    border-bottom: 5px solid #a365c2;
-
-}
 
 
 .header-container {
@@ -115,16 +93,21 @@
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
+    margin-bottom: -12px; 
     box-sizing: border-box;
     border-radius: 20px;
     border: 2px solid #ccc;
 }
 
 .categories-container {
+    padding-left: 15px;
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
     margin-bottom: 20px;
+    margin-top: 4px; /* add this line and adjust as needed */
+
+    
 }
 
 .category-tag {
@@ -151,32 +134,21 @@
     padding: 10px;
 }
 
-.logo-text {
+
+.sidebar-logo h1 {
     font-size: 24px;
-    /* Adjust as necessary */
-    font-family: Arial, sans-serif;
-    /* Choose a modern font */
-    background: linear-gradient(45deg, purple, turquoise);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-left: 10px;
-    /* Add some space between the logo and the text */
-}
-.static-templates {
-    display: flex;
-    flex-wrap: wrap;
-    border-bottom: 1px solid gray;
+    color: #fff !important;
 }
 
-.template-card {
-    width: 25%; /* This sets each card to take up 1/4 of the total width. Adjust as necessary. */
-    padding: 10px; /* This adds some space around each card. Adjust as necessary. */
-}
+
+
 
 #template-list {
     position: -webkit-sticky; /* For Safari */
     position: sticky;
     top: 0; /* This specifies that the sidebar should "stick" 0px from the top of the viewport. */
+    display: none;
+
 }
 
 .progress {
@@ -204,3 +176,158 @@
       background-position: 100% 0%;
     }
   }
+
+
+  a .text-sm.font-medium.text-white.bg-blue-600.ml-10.rounded {
+    color: white !important;
+    background-color: turquoise !important;
+    border-radius: 15px !important;
+    padding: 2px 6px !important;  /* Adjust padding as per your requirement */
+    font-size: 10px !important;   /* Adjust font size as per your requirement */
+}
+
+
+
+
+
+.tab-button {
+    position: relative;
+    background: transparent;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.tab-button::before, .tab-button::after {
+    content: "";
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    bottom: 0;
+    background: #333;
+    transition: all 0.3s ease;
+}
+
+.tab-button::before {
+    left: 50%;
+    transform: translateX(-50%) scaleX(0);
+}
+
+.tab-button::after {
+    display: none;
+}
+
+.tab-button.active::before {
+    transform: translateX(-50%) scaleX(1);
+}
+
+.tab-button.active::after {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -10px; /* Adjust as necessary */
+    bottom: -2px; /* Adjust as necessary */
+    background: #fff;
+    border-radius: 3px 3px 0 0;
+    z-index: -1;
+}
+
+
+/* Template Cards */
+/* Common class for both static and custom template cards container */
+.templates-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start; /* Items align to the left side */
+    align-items: flex-start; /* Items align to the top side */
+    gap: 10px; /* Adjust this value as per your need */
+}
+
+.icon {
+    height: 40px;  /* Adjust to preferred size */
+    width: 40px;   /* Adjust to preferred size */
+    border-radius: 50%;  /* Circle shape */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);  /* Enhanced shadow */
+    object-fit: cover;  /* Ensures the image covers the whole area without distortion */
+    padding: 1px;
+    margin-bottom: 15px;
+}
+
+
+.template-card {
+    overflow: hidden; /* or you can use 'hidden' */
+    display: flex;
+    flex-direction: column; 
+    justify-content: space-between; 
+    width: 90%;  /* Adjust as needed */
+    height: 200px; /* Adjust as needed */
+    border-radius: 20px;
+    padding: 20px;
+    margin: 2%;  /* Adjust as needed */
+    border: 1px solid lightgrey;
+    transition: 0.3s;
+    background-color: white;
+    box-sizing: border-box;  /* Makes sure padding and border are included in element's total width and height */
+    max-width: 200px;  /* Limits how big cards can get */
+    min-width: 300px;  /* Minimum size of cards */
+    flex: 1 0 21%;  /* This will make your cards responsive. Adjust as needed */
+}
+
+.template-card:hover {
+    background-color: #e8d5f1;
+    border: 2px solid #a365c2;
+    border-bottom: 5px solid #a365c2;
+
+}
+
+/* Specific class for static templates container */
+.static-templates {
+    border-bottom: 1px solid gray;
+}
+
+/* Specific class for custom templates container */
+#card-container {
+    margin-top: 20px; /* Add space on top of the container */
+}
+
+.create-template-btn {
+    position: absolute;
+    right: 30px;
+    top: 30px;
+    background: transparent;
+    border: none;
+    font-size: 1.5em;
+    color: transparent;
+    cursor: pointer;
+}
+
+.create-template-btn:before {
+    content: "\002B";
+    background: -webkit-linear-gradient(45deg, purple, turquoise);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+#template-list > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+#template-list .template-card, .static-templates .template-card {
+    /* Add your styling here */
+    display: inline-block;
+}
+
+
+.template-title {
+    font-weight: bold;
+}
+
+.template-description {
+    color: lightgrey;
+}

@@ -10,94 +10,81 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="/products.css">
     <link href="https://cdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
 
 </head>
 
 
 <body>
-    <div class="wrapper">
-        <div id="bigSidebar"
-        class="flex flex-col  w-64 min-w-64 h-full overflow-hidden text-black-400 bg-white-900 box ">
 
-        <div class="sidebar-logo bg-red">
-            <img class="logo-image mt-3" src="/img/brand/vb.svg" alt="logo" />
-            <h1 class="logo-text">Vixbot</h1>
+
+    <div id="main-wrapper" class="flex">
+
+        <div id="bigSidebar" class="fixed flex flex-col w-3/20 h-screen overflow-hidden text-white bg-purple-900 box">
+
+
+
+            <div class="sidebar-logo bg-red">
+                <h1 class="logo-text">Vixbot</h1>
+
+            </div>
+
+            <a class="flex items-center w-full h-12 px-3 mt-2 mt-20 hover:bg-gray-700 hover:text-gray-300"
+                href="/templates">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers">
+                    <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                    <polyline points="2 17 12 22 22 17"></polyline>
+                    <polyline points="2 12 12 17 22 12"></polyline>
+                </svg>
+                <span class="ml-2 text-sm font-medium">Templates</span>
+            </a>
+
+
+            <!-- Products link -->
+            <a class="flex items-center w-full h-12 px-3 mt-2  hover:bg-gray-700 hover:text-gray-300" href="/products">
+                <img src="/img/brand/folder.svg" alt="Products Icon" width="24" height="24">
+
+                <span class="ml-2 text-sm font-medium">Products</span>
+            </a>
+            <!-- Templates link -->
+
+            <a class="flex items-center w-full h-12 px-3 mt-2  hover:bg-gray-700 hover:text-gray-300 "
+                href="/conversations">
+                <img src="/img/brand/message-circle.svg" alt="Chat Icon" width="24" height="24">
+
+                <span class="ml-2 text-sm font-medium">Vix Chat</span>
+            </a>
+            <a class="flex items-center w-full h-12 px-3 mt-2  hover:bg-gray-700 hover:text-gray-300"
+                href="/conversations">
+                <img src="/img/brand/globe.svg" alt="Products Icon" width="24" height="24">
+
+                <span class="ml-2 text-sm font-medium">Explore</span>
+                <span class="ml-1 px-1 py-1 text-sm font-medium text-white bg-blue-600 ml-10 rounded">NEW</span>
+            </a>
 
         </div>
 
-        <a class="flex items-center w-full h-12 px-3 mt-2 mt-20 hover:bg-gray-700 hover:text-gray-300"
-            href="/templates">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor"
-                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers">
-                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-                <polyline points="2 17 12 22 22 17"></polyline>
-                <polyline points="2 12 12 17 22 12"></polyline>
-            </svg>
-            <span class="ml-2 text-sm font-medium">Templates</span>
-        </a>
-
-
-        <!-- Products link -->
-        <a class="flex items-center w-full h-12 px-3 mt-2  hover:bg-gray-700 hover:text-gray-300" href="/products">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor"
-                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box">
-                <path
-                    d="M21 13V21C21 21.5304 20.7893 22.0391 20.4142 22.4142C20.0391 22.7893 19.5304 23 19 23H5C4.46957 23 3.96086 22.7893 3.58579 22.4142C3.21071 22.0391 3 21.5304 3 21V13">
-                </path>
-                <polyline points="3 12 12 7 21 12"></polyline>
-                <path d="M12 22V7"></path>
-                <path d="M2 6L22 6"></path>
-            </svg>
-            <span class="ml-2 text-sm font-medium">Products</span>
-        </a>
-        <!-- Templates link -->
-
-        <a class="flex items-center w-full h-12 px-3 mt-2  hover:bg-gray-700 hover:text-gray-300 "
-            href="/conversations">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor"
-                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-lightbulb">
-                <path
-                    d="M13 17H11M6.38 18A7.95 7.95 0 0 0 12 20C15.866 20 19 16.866 19 13A7.95 7.95 0 0 0 19.74 11H4.67A7.95 7.95 0 0 0 5 13C5 15.7614 7.23858 18 10 18Z">
-                </path>
-                <line x1="12" y1="2" x2="12" y2="6"></line>
-                <line x1="18" y1="12" x2="22" y2="12"></line>
-                <line x1="6" y1="12" x2="2" y2="12"></line>
-            </svg>
-            <span class="ml-2 text-sm font-medium">Vix Chat</span>
-        </a>
-        <a class="flex items-center w-full h-12 px-3 mt-2  hover:bg-gray-700 hover:text-gray-300"
-            href="/conversations">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor"
-                stroke-width="2">
-                <path
-                    d="M17 21v-2c0-1.1-.4-2.1-1.2-2.9-.7-.8-1.7-1.2-2.8-1.2h-2c-1.1 0-2.1.4-2.9 1.2-.8.7-1.2 1.7-1.2 2.8v2">
-                </path>
-                <circle cx="9" cy="7" r="4"></circle>
-                <path
-                    d="M23 21v-2c0-1.1-.4-2.1-1.2-2.9-.7-.8-1.7-1.2-2.8-1.2-1.1 0-2.1.4-2.9 1.2-.8.7-1.2 1.7-1.2 2.8v2">
-                </path>
-                <circle cx="19" cy="7" r="4"></circle>
-            </svg>
-            <span class="ml-2 text-sm font-medium">Collaborate</span>
-            <span class="ml-1 px-1 py-1 text-sm font-medium text-white bg-blue-600 ml-10 rounded">NEW</span>
-        </a>
-
-    </div>
 
 
         <div class="main-content">
 
+
+            <div id="loading" style="display:none;">
+                <img src="/path/to/loading/logo" alt="loading logo"/>
+              </div>
+              
             <!-- Page content -->
             <div class="container-fluid mt--7">
                 <!-- Header -->
                 <div class="row">
                     <div class="col">
                         <div class="card ">
-                            <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
+                            <div class="card-header d-flex justify-content-between align-items-center">
                                 <!-- ... -->
                                 <div class="header-content d-flex align-items-center"> <!-- NEW DIV -->
-                                    <h1 class="mb-0 mr-3" style=" font-size: 2em;">Products</h1>
-                                    <!-- I ADDED "mr-3" HERE TO ADD SOME MARGIN ON THE RIGHT -->
+                                    <h1 class="mb-0 mr-3 p-5" style=" font-size: 2em;">Products</h1>
                                     <button id="add-product-btn" class="btn btn-primary">+</button>
                                 </div>
                                 <!-- ... -->
@@ -113,79 +100,111 @@
                     <!-- Newly created products will be added here -->
                 </div>
 
-                <!-- Create Product Modal -->
-                <div class="modal" id="create-product-modal">
-
-                    <div class="modal-content d-flex">
-                        <div class="modal-left">
-
-                            <h3 class="mb-4">Create a New Product</h3>
-                            <form id="create-product-form" method="POST" action="/create-product">
-                                <div id="product-name-group">
-                                    <label for="product-name">Product Name:</label>
-                                    <input type="text" class="form-control" id="product-name" name="product_name"
-                                        required>
-                                </div>
-                                <div id="main-features-group" class="hidden">
-                                    <label for="main-features">Main Features:</label>
-                                    <textarea class="form-control" id="main-features" name="main_features" rows="3"
-                                        required></textarea>
-                                </div>
-                                <div id="unique-selling-points-group" class="hidden">
-                                    <label for="unique-selling-points">Unique Selling Points:</label>
-                                    <textarea class="form-control" id="unique-selling-points"
-                                        name="unique_selling_points" rows="3" required></textarea>
-                                </div>
-                                <div id="pricing-model-group" class="hidden">
-                                    <label for="pricing-model">Pricing Model:</label>
-                                    <input type="text" class="form-control" id="pricing-model" name="pricing_model"
-                                        required>
-                                </div>
-                                <div id="distribution-channels-group" class="hidden">
-                                    <label for="distribution-channels">Distribution Channels:</label>
-                                    <input type="text" class="form-control" id="distribution-channels"
-                                        name="distribution_channels" required>
-                                </div>
-                            </form>
-
-                            <div class="mt-4">
-                                <button type="button" class="btn btn-secondary mr-2" id="cancel-btn">Cancel</button>
-                                <button type="button" class="btn btn-primary" id="next-btn">Next</button>
-                                <button type="button" class="btn btn-primary" id="submit-btn">Submit</button>
-                            </div>
-
-
-                        </div>
-
-
-                        <div class="modal-right">
-                            <h3 class="mb-4">Product Creation Suggestions</h3>
-                            <!-- your product creation suggestions go here -->
-                        </div>
-
-                    </div>
-                </div>
-
-
-                <!-- ... -->
+             
 
             </div>
         </div>
+
+           <div class="modal-wrapper">
+                    <div class="modal" id="create-product-modal">
+                
+                        <div class="modal-content d-flex">
+                            <div class="modal-left">
+                
+                                <h3 class="mb-4">Create a New Product</h3>
+                                <form id="create-product-form" method="POST" action="/create-product">
+                                    <div id="product-name-group">
+                                        <label for="product-name">Product Name:</label>
+                                        <input type="text" class="form-control" id="product-name" name="product_name" required>
+                                    </div>
+                                    <div id="main-features-group" class="hidden">
+                                        <label for="main-features">Main Features:</label>
+                                        <textarea class="form-control" id="main-features" name="main_features" rows="3" required></textarea>
+                                    </div>
+                                    <div id="unique-selling-points-group" class="hidden">
+                                        <label for="unique-selling-points">Unique Selling Points:</label>
+                                        <textarea class="form-control" id="unique-selling-points" name="unique_selling_points" rows="3" required></textarea>
+                                    </div>
+                                    <div id="pricing-model-group" class="hidden">
+                                        <label for="pricing-model">Pricing Model:</label>
+                                        <input type="text" class="form-control" id="pricing-model" name="pricing_model" required>
+                                    </div>
+                                    <div id="distribution-channels-group" class="hidden">
+                                        <label for="distribution-channels">Distribution Channels:</label>
+                                        <input type="text" class="form-control" id="distribution-channels" name="distribution_channels" required>
+                                    </div>
+                                </form>
+                
+                            </div>
+                
+                            <div class="modal-right">
+                                <h3 class="mb-4">Product Creation Suggestions</h3>
+                                <!-- your product creation suggestions go here -->
+                            </div>
+                        </div>
+                
+                        <div class="modal-buttons mt-4">
+                            <button type="button" class="btn btn-icon" id="cancel-btn">
+                                <i class="fas fa-times"></i>  <!-- X icon for 'cancel' -->
+                            </button>
+                            <button type="button" class="btn btn-icon" id="next-btn">
+                                <i class="fas fa-arrow-right"></i>  <!-- Right arrow icon for 'next' -->
+                            </button>
+                            <button type="button" class="btn btn-icon" id="submit-btn" style="display: none;">
+                                <i class="fas fa-check"></i>  <!-- Check icon for 'submit' -->
+                            </button>
+                        </div>
+                
+                    </div>
+                </div>
+                
     </div>
 
+
+
+
     <script>
-        $(document).ready(function () {
-            // Handle the "Add Product" button click event
-            $("#add-product-btn").on("click", function () {
-                $("#create-product-modal").show();
+
+        
+        
+        async function loadProducts() {
+            try {
+                const response = await $.ajax({
+                    type: "GET",
+                    url: "/products",
+                    dataType: "json"
+                });
+    
+                $("#products-container").empty();
+    
+                response.products.forEach(product => {
+                const productCardHtml = `
+                <div class="product-card rounded-card">
+                <img src="/img/brand/product-logo.svg" class="icon" alt="Product Icon" />
+                <h3 class="product-title">${product.product_name}</h3>
+                <p class="product-description text-gray-500">${product.summary}</p> 
+            </div>`;
+                $("#products-container").prepend(productCardHtml);
             });
 
-            // Handle the "Cancel" button click event
+            } catch (error) {
+                console.error("Failed to load products:", error.responseText);
+                alert("Failed to load products. Please refresh the page.");
+            }
+        }
+    
+        $(document).ready(function () {
+            loadProducts();
+    
+            $("#add-product-btn").on("click", function () {
+                $("#create-product-modal").show();
+                
+            });
+    
             $("#cancel-btn").on("click", function () {
                 $("#create-product-modal").hide();
             });
-
-            // Setup modal question flow
+    
             const questionGroups = [
                 "product-name-group",
                 "main-features-group",
@@ -193,7 +212,7 @@
                 "pricing-model-group",
                 "distribution-channels-group",
             ];
-
+    
             let currentQuestionIndex = 0;
             function showQuestion(index) {
                 questionGroups.forEach((group, i) => {
@@ -202,21 +221,22 @@
                 $("#next-btn").css("display", index < questionGroups.length - 1 ? "inline-block" : "none");
                 $("#submit-btn").css("display", index === questionGroups.length - 1 ? "inline-block" : "none");
             }
-
+    
             $("#next-btn").on("click", function () {
                 currentQuestionIndex++;
                 showQuestion(currentQuestionIndex);
             });
-
-            // When the modal is shown, display the first question
+    
             $("#create-product-modal").on("shown.bs.modal", function () {
                 currentQuestionIndex = 0;
                 showQuestion(currentQuestionIndex);
             });
-
-            // Handle the form submission
+    
             $("#submit-btn").on("click", async function (event) {
                 event.preventDefault();
+                
+                $("#loading").show(); // Show the loading div
+
 
                 const formData = {
                     product_name: $("#product-name").val(),
@@ -226,36 +246,49 @@
                     distribution_channels: $("#distribution-channels").val(),
                 };
 
-                try {
-                    const response = await $.ajax({
-                        type: "POST",
-                        url: "/create-product",
-                        data: formData,
-                        dataType: "json",
+                // Generate the prompt for GPT-3
+                const prompt = `Generate a 15 word summary that starts with 'A product that ' for a product named ${formData.product_name}, which has the following features: ${formData.main_features}, unique selling points: ${formData.unique_selling_points}, pricing model: ${formData.pricing_model}, and distribution channels: ${formData.distribution_channels}.`;
+
+                    try {
+                        // Get the product summary from GPT-3
+                        const summaryResponse = await $.ajax({
+                            type: "POST",
+                            url: "/generate-summary",
+                            data: { prompt },
+                            dataType: "json",
+                        });
+
+                        // Add the summary to the formData
+                        formData.summary = summaryResponse.generatedSummary;
+
+                        // Send the product data to the server to create the product
+                        const response = await $.ajax({
+                            type: "POST",
+                            url: "/create-product",
+                            data: formData,
+                            dataType: "json",
+                        });
+
+                        const productCardHtml = `
+                        <div class="product-card rounded-card">
+                            <img src="/img/brand/product-logo.svg" class="icon" alt="Product Icon" />
+                            <h3 class="product-title">${response.product.product_name}</h3>
+                            <p class="product-description text-gray-500">${response.product.summary}</p> <!-- display the summary -->
+                        </div> `;
+
+                        $("#products-container").prepend(productCardHtml);
+                        $("#loading").hide(); // Hide the loading div when the async operation is done
+                        $("#create-product-modal").hide();
+                    } catch (error) {
+                        console.error("Server response:", error.responseText);
+                        alert("Failed to create a new product. Please try again.");
+                        $("#loading").hide(); // Also hide the loading div if there was an error
+                        $("#create-product-modal").hide();
+                    }
                     });
 
-                    // Create a new product card with the received data and append it to the products container
-                    const productCardHtml = `
-            <div class="col-sm-6 col-lg-3 mb-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">${response.template.product_name}</h5>
-                        <p class="card-text">${response.template.main_features}</p>
-                    </div>
-                </div>
-            </div>`;
-                    $("#products-container").append(productCardHtml);
-
-                } catch (error) {
-                    console.error("Server response:", error.responseText);
-                    alert("Failed to create a new product. Please try again.");
-                }
-            });
-        });
-
-
-
+                 });
     </script>
-
+    
 
 </body>

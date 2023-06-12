@@ -1,20 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+
+
 body {
+    font-family: 'Poppins', sans-serif !important;
+    overflow-x: hidden; /* Hide horizontal scroll */
+    overflow-y: hidden; /* Hide vertical scroll */
+    transition: filter 0.3s ease;
+
+}
+
+#main-wrapper {
     display: flex;
+}
+
+
+#bigSidebar {
+    position: fixed;
     height: 100vh;
-    width: 100%;
-}
-
-.wrapper {
-    display: flex;
-    width: 100%;
-}
-
-.main-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    min-height: 100vh;
+    width: 15%; /* 3/20 of the viewport width */
+    color: #fff; /* Text color to white */
 }
 
 .br-bt {
@@ -23,23 +27,27 @@ body {
 
 .sidebar-logo {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-decoration: none;
+    justify-content: flex-start;
+    /* Align children to the left */
+    align-items: baseline;
+    /* Align children to the same baseline */
+    padding: 10px;
 }
+
+
+.sidebar-logo h1 {
+    font-size: 24px;
+    color: #fff !important;
+}
+
+
+
 
 .logo-image {
-    width: 100px;
+    height: 50px;
     /* Adjust as necessary */
-    height: 100px;
-    /* Adjust as necessary */
-    margin-left: 50px;
-}
-
-#bigSidebar {
-    position: relative;
-    z-index: 1;
-    border-right: 1px solid lightgray;
+    width: auto;
+    /* Keeps the aspect ratio of the image */
 }
 
 .sidebar-text {
@@ -63,35 +71,27 @@ body {
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.5);
 }
-
 .modal-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #fefefe;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 30%;
-    /* Adjust as per your need */
-    height: 60%;
-    /* Adjust as per your need */
-    z-index: 1002;
-    overflow: auto;
-    display: flex;
-    flex-direction: column;
-    /* Add this */
-
-
+    background-color: #fff; /* White background for the modal */
+    border-radius: .5rem; /* Rounded corners for the modal */
+    overflow: hidden; /* To ensure the corner radius is applied to all child elements */
+    max-width: 80%; /* Make the modal a bit smaller */
+    margin: auto; /* Center the modal */
+    padding: 2rem; /* More padding for a spacious look */
+    display: flex; /* To layout the left and right sections side by side */
 }
-
 .modal-left,
 .modal-right {
     flex: 1;
     padding: 20px;
-    border-right: 1px solid lightgray;
+    flex-basis: 50%; /* Each section takes up half the space */
     flex-grow: 1;
     /* Add this */
+}
+
+
+.modal-left {
+    border-right: 1px solid lightgray;
 }
 
 input:focus {
@@ -103,52 +103,58 @@ input:focus {
 .card {
     width: 100%;
     box-sizing: border-box;
+    border: none; /* Removing the border */
+    border-radius: .375rem;
 
 }
-
 .modal-content .btn {
-    margin-right: 10px;
-}
-
+    margin: 20px 10px;
+  }
+  
 .card-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid lightgray;
     width: 100%;
     padding: 20px;
 
 }
 
-/* ... */
 .header-content {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    /* Add this */
-
+    border-bottom: 1px solid lightgray;
+    padding-bottom: 10px;
 }
-
 #add-product-btn {
-    font-size: xx-large;
+    font-size: larger;
+    background-image: linear-gradient(to right, purple , turquoise);
+    border: none;
+    color: white;
+    padding: 10px 15px; /* More padding for a larger click area */
+    border-radius: 20px;
+    transition: all .15s ease; /* Transition for a smooth hover effect */
 }
 
-/* ... */
+
+#add-product-btn:hover {
+    transform: translateY(-1px); /* Move the button up slightly when hovering */
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important; /* Shadow to give a "lifting" effect */
+}
 
 /* The Button */
 .btn {
-    padding: 12px 24px;
-    font-size: 16px;
-    cursor: pointer;
-    text-decoration: none;
-    outline: none;
-    border: none;
-    border-radius: 12px;
-    box-shadow: 0 9px #999;
-    transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+    padding: .625rem 1.25rem; /* More padding for a larger click area */
+    font-size: .875rem; /* Slightly larger font size */
+    font-weight: 600; /* Bolder font weight */
+    letter-spacing: .1em; /* Letter spacing for a modern look */
+    text-transform: uppercase; /* Transform the text to uppercase */
+    border: none; /* Removing the border */
+    border-radius: .375rem; /* Rounding the corners slightly */
+    transition: all .15s ease; /* Transition for a smooth hover effect */
 }
-
 /* Button on mouse hover */
 .btn:hover {
     box-shadow: 0 7px #777;
@@ -172,8 +178,11 @@ input:focus {
     background-color: #007bff;
 }
 
+
 .btn-primary:hover {
     background-color: #0056b3;
+    transform: translateY(-1px); /* Move the button up slightly when hovering */
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important; /* Shadow to give a "lifting" effect */
 }
 
 .btn-primary:active {
@@ -187,11 +196,226 @@ input:focus {
 
 .btn-secondary:hover {
     background-color: #5a6268;
+    transform: translateY(-1px); /* Move the button up slightly when hovering */
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important; /* Shadow to give a "lifting" effect */
 }
-
 .btn-secondary:active {
     background-color: #454d55;
 }
 
 
 /* Sidebar */
+
+
+.product-card {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 90%;
+    height: 200px;
+    border-radius: 20px;
+    padding: 20px;
+    margin: 2%;
+    border: 1px solid lightgrey;
+    transition: 0.3s;
+    background-color: white;
+    box-sizing: border-box;
+    max-width: 200px;
+    min-width: 300px;
+    flex: 1 0 21%;
+}
+
+.product-card:hover {
+    background-color: #e8d5f1;
+    border: 2px solid #a365c2;
+    border-bottom: 5px solid #a365c2;
+}
+
+.icon {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    object-fit: cover;
+    padding: 1px;
+    margin-bottom: 15px;
+}
+
+.templates-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+#products-container {
+    padding: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start; /* changed from space-between */
+}
+
+  .product-card {
+    flex-basis: calc(25% - 20px);
+    margin-bottom: 20px;
+  }
+
+ 
+
+a .text-sm.font-medium.text-white.bg-blue-600.ml-10.rounded {
+    color: white !important;
+    background-color: turquoise !important;
+    border-radius: 15px !important;
+    padding: 2px 6px !important;  /* Adjust padding as per your requirement */
+    font-size: 10px !important;   /* Adjust font size as per your requirement */
+}
+
+
+.product-title {
+    padding-bottom: 7px;
+    font-size: 1.0em !important; /* adjust as needed */
+}
+
+.product-card p {
+    font-size: 0.8em !important; /* adjust as needed */
+}
+
+
+#loading {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+  }
+  
+
+  h3.mb-4 {
+    font-size: 1.75rem;  /* Make titles fonts bigger */
+}
+
+.btn-icon {
+    border: none;
+    border-radius: 50%;  /* Make the buttons round */
+    padding: 10px;  /* Padding to make the buttons larger */
+    width: 40px;  /* Fixed width */
+    height: 40px;  /* Fixed height */
+    display: flex;  /* Center the icons */
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-icon:hover {
+    transform: translateY(-1px);  /* Move the button up slightly when hovering */
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;  /* Shadow to give a "lifting" effect */
+}
+
+#cancel-btn {
+    background-color: #ff4757;  /* Red color for 'cancel' */
+    color: #fff;  /* White text color */
+}
+
+#next-btn {
+    background-image: linear-gradient(to right, purple , turquoise);  /* Gradient background */
+    color: #fff;  /* White text color */
+}
+
+#submit-btn {
+    background-color: #2ed573;  /* Green color for 'submit' */
+    color: #fff;  /* White text color */
+}
+
+
+
+.main-content {
+    margin-left: 20%;
+    width: 80%;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+/* New modal wrapper */
+.main-content .modal-wrapper {
+    position: relative;
+    height: 100%;
+}
+
+/* rest of your CSS styles... */
+
+/* Plus button */
+.btn-icon#add-product-btn {
+    background-color: #fff;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-icon#add-product-btn::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background-image: linear-gradient(to right, purple , turquoise);
+    transform: rotate(45deg);
+    z-index: 1;
+}
+
+.btn-icon#add-product-btn i {
+    position: relative;
+    z-index: 2;
+}
+
+.btn-icon#add-product-btn:hover {
+    box-shadow: 0 0 15px rgba(128, 0, 128, 0.5), 0 0 15px rgba(64, 224, 208, 0.5); 
+}
+
+
+/* Modal */
+.modal-buttons {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Modal */
+#create-product-modal {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70vw;
+    height: 70vh;
+    background-color: #fff;
+    overflow: auto;
+    border-radius: 10px;
+    z-index: 1;
+    padding: 20px; /* Add padding inside the modal */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+ 
+}
+
+
+
+/* Buttons at the bottom */
+.modal-content .mt-4 {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.blurred {
+    filter: blur(5px);
+    pointer-events: none;
+    user-select: none;
+}

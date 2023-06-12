@@ -74,6 +74,8 @@
 
             <label for="productName">Product/Service Name</label>
             <textarea id="productName" maxlength="600"></textarea>
+            <datalist id="productDropdown"></datalist>
+
 
             <label for="prompt">Prompt</label>
             <input type="text" id="prompt" />
@@ -94,6 +96,7 @@
 
 
     <script>
+        //Generate content 
         document.getElementById('generate').addEventListener('click', async () => {
             const title = document.getElementById('documentTitle').value;
             const name = document.getElementById('productName').value;
@@ -169,6 +172,8 @@
         });
 
     </script>
+
+
 
 
 </body>

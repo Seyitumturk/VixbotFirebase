@@ -8,17 +8,19 @@
     <title>Templates</title>
     <link rel="stylesheet" href="templates.css">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
+
 
 </head>
 
 <body>
-    <div id="main-wrapper">
+    <div id="main-wrapper" class="flex">
 
-        <div id="bigSidebar"
-            class="flex flex-col  w-64 min-w-64 h-full overflow-hidden text-black-400 bg-white-900 box ">
+        <div id="bigSidebar" class="fixed flex flex-col w-3/20 h-screen overflow-hidden text-white bg-purple-900 box">
+
+
 
             <div class="sidebar-logo bg-red">
-                <img class="logo-image mt-3" src="/img/brand/vb.svg" alt="logo" />
                 <h1 class="logo-text">Vixbot</h1>
 
             </div>
@@ -37,52 +39,29 @@
 
             <!-- Products link -->
             <a class="flex items-center w-full h-12 px-3 mt-2  hover:bg-gray-700 hover:text-gray-300" href="/products">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor"
-                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box">
-                    <path
-                        d="M21 13V21C21 21.5304 20.7893 22.0391 20.4142 22.4142C20.0391 22.7893 19.5304 23 19 23H5C4.46957 23 3.96086 22.7893 3.58579 22.4142C3.21071 22.0391 3 21.5304 3 21V13">
-                    </path>
-                    <polyline points="3 12 12 7 21 12"></polyline>
-                    <path d="M12 22V7"></path>
-                    <path d="M2 6L22 6"></path>
-                </svg>
+                <img src="/img/brand/folder.svg" alt="Products Icon" width="24" height="24">
+
                 <span class="ml-2 text-sm font-medium">Products</span>
             </a>
             <!-- Templates link -->
 
             <a class="flex items-center w-full h-12 px-3 mt-2  hover:bg-gray-700 hover:text-gray-300 "
                 href="/conversations">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor"
-                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-lightbulb">
-                    <path
-                        d="M13 17H11M6.38 18A7.95 7.95 0 0 0 12 20C15.866 20 19 16.866 19 13A7.95 7.95 0 0 0 19.74 11H4.67A7.95 7.95 0 0 0 5 13C5 15.7614 7.23858 18 10 18Z">
-                    </path>
-                    <line x1="12" y1="2" x2="12" y2="6"></line>
-                    <line x1="18" y1="12" x2="22" y2="12"></line>
-                    <line x1="6" y1="12" x2="2" y2="12"></line>
-                </svg>
+                <img src="/img/brand/message-circle.svg" alt="Chat Icon" width="24" height="24">
+
                 <span class="ml-2 text-sm font-medium">Vix Chat</span>
             </a>
             <a class="flex items-center w-full h-12 px-3 mt-2  hover:bg-gray-700 hover:text-gray-300"
                 href="/conversations">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor"
-                    stroke-width="2">
-                    <path
-                        d="M17 21v-2c0-1.1-.4-2.1-1.2-2.9-.7-.8-1.7-1.2-2.8-1.2h-2c-1.1 0-2.1.4-2.9 1.2-.8.7-1.2 1.7-1.2 2.8v2">
-                    </path>
-                    <circle cx="9" cy="7" r="4"></circle>
-                    <path
-                        d="M23 21v-2c0-1.1-.4-2.1-1.2-2.9-.7-.8-1.7-1.2-2.8-1.2-1.1 0-2.1.4-2.9 1.2-.8.7-1.2 1.7-1.2 2.8v2">
-                    </path>
-                    <circle cx="19" cy="7" r="4"></circle>
-                </svg>
-                <span class="ml-2 text-sm font-medium">Collaborate</span>
+                <img src="/img/brand/globe.svg" alt="Products Icon" width="24" height="24">
+
+                <span class="ml-2 text-sm font-medium">Explore</span>
                 <span class="ml-1 px-1 py-1 text-sm font-medium text-white bg-blue-600 ml-10 rounded">NEW</span>
             </a>
 
         </div>
 
-        <div id="mainContent">
+        <div id="mainContent" class="ml-3/20 pl-4 w-17/20 ">
 
             <h1 id="page-title">Templates</h1>
 
@@ -90,7 +69,7 @@
             <div class="progress">
                 <div class="progress-bar" style="width:<%= progressPercentage %>%;background-color: <%= progressPercentage < 50 ? 'red' : 'green' %>;"></div>
               </div>
-              <p class="p-3 text-gray-500">Complete your business onboarding. You have <%= totalQuestions - progressCount %> questions left.</p>
+              <p class="p-3 text-gray-500">Optimize your results, complete your business onboarding. You have <%= totalQuestions - progressCount %> questions left.</p>
 
               
             <div class="header-container">
@@ -99,6 +78,10 @@
                 </div>
             </div>
 
+        
+    
+    <!--Categories Section-->
+        
             <div class="categories-container">
                 <div class="category-tag">
                     <span>Marketing </span>
@@ -112,66 +95,92 @@
                 <!-- Add more as needed -->
             </div>
 
-            <!-- The rest of your code -->
 
-
-            <button id="openModalBtn">Create Template</button>
-            <div id="myModal" class="modal">
-                <div class="modal-content">
-                    <span id="closeModalBtn" class="close">&times;</span>
-                    <h1>Create Template</h1>
-                    <form id="create-template-form" action="/create-template" method="post">
-                        <label for="template_name">Template Name:</label><br>
-                        <input type="text" id="template_name" name="template_name"><br>
-                        <label for="template_details">Template Details:</label><br>
-                        <input type="text" id="template_details" name="template_details"><br>
-                        <label for="prompt">Prompt:</label><br>
-                        <input type="text" id="prompt" name="prompt"><br>
-                        <label for="category">Category:</label><br>
-                        <input type="text" id="category" name="category"><br>
-                        <label for="product_id">Product:</label><br>
-                        <select id="product_id" name="product_id">
-                            <% products.forEach((product)=> { %>
-                                <option value="<%= product._id %>">
-                                    <%= product.product_name %>
-                                </option>
-                                <% }); %>
-                        </select><br>
-
-                        <input type="submit" value="Create Template">
-                    </form>
-                </div>
-            </div>
-
-            <div class="static-templates pb-12">
-                <% staticTemplates.forEach(function(template) { %>
-                    <div class="template-card">
-                        <a href="<%= template.link %>">
-                            <h3><%= template.name %></h3>
-                        </a>
-                        <!-- You can add more information about the template if you have -->
-                    </div>
-                <% }); %>
+    <!--Tab Section-->
+    
+            <div class="tab-container flex border-b border-gray-300">
+                <button class="tab-button px-4 py-2 mr-2 border-b-2 border-transparent hover:border-gray-400 focus:border-blue-500 focus:outline-none" id="defaultTemplatesBtn">Default Templates</button>
+                <button class="tab-button px-4 py-2 mr-2 border-b-2 border-transparent hover:border-gray-400 focus:border-blue-500 focus:outline-none" id="customTemplatesBtn">Custom Templates</button>
             </div>
             
+    <!--Static Templates-->
 
 
+    <div class="templates-container static-templates pb-12 pt-12">
+        <% staticTemplates.forEach(function(template) { %>
+            <div class="template-card">
+                <img 
+                src="<%= 
+                template.name === 'Email Campaign' ? '/img/brand/email-logo.svg' :
+                template.name === 'Social Media Plan' ? '/img/brand/social-media.svg' : 
+                '/img/brand/fb-logo.svg' 
+            %>" 
+            class="icon" 
+            alt="Icon"/>
+                <a href="<%= template.link %>">
+                    <h3 class="template-title"><%= template.name %></h3>
+                </a>
+                <p class="template-description text-gray-500"><%= template.description %></p>
+            </div>
+        <% }); %>
+    </div>
+    
+    
+
+     <!--Custom Templates-->
+            
             <div id="template-list" class="pt-9">
-                <h1 class="text-3xl"> My Templates</h1>
-                <div id="card-container">
+                <div style="position: relative;">
+                    <h1 class="text-3xl p-3"> My Templates</h1>
+                    <button id="openModalBtn" class="create-template-btn">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+                
 
+                <div id="myModal" class="modal">
+                    <div class="modal-content">
+                        <span id="closeModalBtn" class="close">&times;</span>
+                        <h1>Create Template</h1>
+                        <form id="create-template-form" action="/create-template" method="post">
+                            <label for="template_name">Template Name:</label><br>
+                            <input type="text" id="template_name" name="template_name"><br>
+                            <label for="template_details">Template Details:</label><br>
+                            <input type="text" id="template_details" name="template_details"><br>
+                            <label for="prompt">Prompt:</label><br>
+                            <input type="text" id="prompt" name="prompt"><br>
+                            <label for="category">Category:</label><br>
+                            <input type="text" id="category" name="category"><br>
+                            <label for="product_id">Product:</label><br>
+                            <select id="product_id" name="product_id">
+                                <% products.forEach((product)=> { %>
+                                    <option value="<%= product._id %>">
+                                        <%= product.product_name %>
+                                    </option>
+                                    <% }); %>
+                            </select><br>
+    
+                            <input type="submit" value="Create Template">
+                        </form>
+                    </div>
+                </div>
+
+
+     <!--Custom Templates Container-->
+
+                <div class="templates-container" id="card-container">
                     <% templates.forEach((template)=> { %>
                         <div class="template-card">
-                            <h2>
+                            <img src="/img/brand/fb-logo.svg" class="icon" alt="Icon"/>
+                            <h2 class="template-title">
                                 <%= template.template_name %>
                             </h2>
-                            <p>
-                                <%= template.template_details %>
-                            </p>
+                            <p class="template-description"><%= template.description %></p>
                             <a href="/template/<%= template._id %>">View Template</a>
                         </div>
-                        <% }); %>
+                    <% }); %>
                 </div>
+                
             </div>
 
         </div>
@@ -243,6 +252,70 @@
         });
 
     </script>
+<script>
+    // Tabs script
+    var defaultTemplatesBtn = document.getElementById("defaultTemplatesBtn");
+    var customTemplatesBtn = document.getElementById("customTemplatesBtn");
+    var defaultTemplates = document.querySelector(".static-templates");
+    var customTemplates = document.getElementById("template-list");
+    var modal = document.getElementById("myModal");
+    var btn = document.getElementById("openModalBtn");
+    var span = document.getElementById("closeModalBtn");
+    
+    defaultTemplatesBtn.classList.add('active');
+    
+    defaultTemplatesBtn.onclick = function () {
+        if (!this.classList.contains('active')) {
+            this.classList.add('active');
+            customTemplatesBtn.classList.remove('active');
+            defaultTemplates.style.display = "block";
+            customTemplates.style.display = "none";
+        }
+    }
+    
+    customTemplatesBtn.onclick = function () {
+        if (!this.classList.contains('active')) {
+            this.classList.add('active');
+            defaultTemplatesBtn.classList.remove('active');
+            defaultTemplates.style.display = "none";
+            customTemplates.style.display = "block";
+        }
+    }
+    
+    // When the user clicks the button, open the modal 
+    btn.onclick = function (event) {
+        // Added condition to check if event is triggered by user
+        if(event.isTrusted) {
+            modal.style.display = "block";
+        }
+    }
+    
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+    
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+    customTemplatesBtn.onclick = function (event) {
+    if (!this.classList.contains('active')) {
+        this.classList.add('active');
+        defaultTemplatesBtn.classList.remove('active');
+        defaultTemplates.style.display = "none";
+        customTemplates.style.display = "block";
+    }
+    if (event.target == customTemplatesBtn) {
+        modal.style.display = "none";
+    }
+}
+
+    
+    </script>
+    
 </body>
 
 </html>
